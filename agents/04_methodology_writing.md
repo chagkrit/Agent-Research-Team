@@ -24,68 +24,117 @@ Write the Methods section following the correct reporting guideline for the stud
 
 Write `analysis/outputs/REPORTING_GUIDELINE_CHECKLIST.md` mapping each item to where it appears in the manuscript.
 
+---
+
 ## Methods Section Structure
 
-### 2.1 Study Design
-- State design clearly (e.g., "We conducted a retrospective cohort study...")
-- State study period (start date to end date)
-- State setting (single/multi-center, country, institution type)
+### 2.1 Study Design and Setting
+- State design clearly: "This was a [single/multi]-centre retrospective cohort study conducted at [institution], [city], [country]."
+- State study period (calendar years of diagnosis/enrolment)
+- Describe institution type (tertiary academic, community, regional referral)
+- State population catchment area if relevant
 
-### 2.2 Data Source
-- Name the database/registry/EHR system
-- Describe data capture method
-- State linkage method if multiple sources merged
-- Cite validation studies for the data source if available
-
-### 2.3 Study Population
-- Inclusion criteria (numbered list)
+### 2.2 Participants
+- Inclusion criteria (numbered list, clear and measurable)
 - Exclusion criteria (numbered list)
-- Refer to cohort flowchart (Figure 1)
+- Index date definition (e.g., operation date, with fallback to diagnosis date)
+- Refer to cohort flow diagram: "Full exclusion counts are shown in Figure [X]."
+- Do NOT report final N here — that belongs in Results
 
-### 2.4 Outcome Definition
-- Primary outcome: exact definition, ICD codes if applicable, timing
-- Secondary outcomes: each defined explicitly
-- Source of outcome ascertainment (administrative, clinical, lab)
+### 2.3 Outcome Definitions
+- Primary outcome: exact event definition, timing from index date, censoring rules
+- Secondary outcomes: each defined separately with event + censoring rules
+- State competing events if applicable (e.g., "Death without local recurrence was treated as a competing event for LRFS.")
+- Source of outcome ascertainment (registry, medical record audit, linkage)
 
-### 2.5 Exposure / Predictor Definition
-- Exposure: exact definition, timing relative to follow-up start
-- How exposure was measured and classified
-- Time-varying vs fixed exposure
+### 2.4 Predictor Variables and Missing Data
+- List candidate predictors selected a priori; state selection rationale (clinical relevance, prior literature, prior model structure)
+- For each predictor: measurement source, unit/categorization, reference category
+- Quantify missingness: "Missing data were present for [variable] ([n] missing, [%]%)."
+- State missing data strategy:
+  - Complete-case analysis (CCA) as primary: state assumption (MAR)
+  - Multiple imputation (MICE) as pre-specified sensitivity: state number of imputations, imputed variables, algorithm (e.g., IterativeImputer / mice package), pooling method (Rubin's rules)
+  - Do NOT use Ki-67 or high-missingness variables in the primary model without justification
 
-### 2.6 Covariates
-- List all covariates included
-- Justify selection (a priori based on DAG / clinical knowledge / literature)
-- State how each was measured
-- State reference categories for categorical variables
+### 2.5 Statistical Analysis
 
-### 2.7 Statistical Analysis
-- Import from `manuscript/methods_statistical_section.md`
-- Sequence: descriptive -> primary -> secondary -> subgroup -> sensitivity
-- State software (e.g., "All analyses were performed using R version 4.x (R Foundation)")
-- State significance level (two-tailed alpha = 0.05)
+#### Descriptive Statistics
+- Continuous: median (IQR); categorical: frequency (%)
+- Kaplan–Meier survival curves with number-at-risk tables below each panel
 
-### 2.8 Ethical Approval
-- State IRB/ethics committee name and approval number
-- State whether informed consent was required/waived
-- State data anonymization approach
+#### Survival Models
+- State model family: Cox proportional hazards (or Fine–Gray for competing risks)
+- State penalization: "A ridge penalty (λ=0.1) was applied to stabilise estimates for small predictor subgroups; a sensitivity analysis with λ=0 (unpenalised) was performed."
+- State EPV: "Events per variable (EPV) were [x] for OS, [x] for DFS, and [x] for LR. Models with EPV <10 should be interpreted cautiously."
+- For competing risks (e.g., local recurrence with death as competing event): report Aalen–Johansen cumulative incidence function (CIF) separately from Kaplan–Meier
 
-## Writing Style Rules
-- Past tense throughout
-- Passive or active voice per journal preference
-- No results in Methods
-- No abbreviations introduced here (unless defined at first use)
-- Spell out all drug names, procedures, and test names in full at first use
+#### Discrimination and Internal Validation
+- "Discrimination was quantified using Harrell's concordance statistic (C-statistic)."
+- Bootstrap optimism correction: "Internal validation used bootstrap optimism correction with [n] resamples. In each resample, a new model was fitted and C-statistics computed in-sample (apparent) and out-of-sample (test); the mean optimism was subtracted from the apparent C-statistic to obtain the optimism-corrected estimate."
+- Report: apparent C, optimism, optimism-corrected C, 95% bootstrap CI
+
+#### Calibration
+- "Calibration was assessed using expected:observed (E:O) ratio at 5 and 10 years, computed using the Breslow baseline hazard estimator."
+- "E:O = 1.00 indicates perfect calibration. Values within ±5% indicate excellent agreement."
+- Calibration plot: mean predicted survival vs Kaplan–Meier observed survival within risk quintiles (diagonal = perfect)
+
+#### Proportional Hazards Assessment
+- "Scaled Schoenfeld residual tests were used to assess the proportional hazards (PH) assumption for each predictor."
+- For predictors with significant violations: report stratified Cox sensitivity analysis
+- Report in supplementary (Schoenfeld residual plots as Figure S1)
+
+#### Clinical Score Chart (if prediction model)
+- "An integer clinical risk score was derived from OS Cox coefficients using: score points = round(coefficient × unit × 10)."
+- This facilitates bedside application without software.
+
+#### Sensitivity Analyses
+List all pre-specified sensitivity analyses:
+1. MICE multiple imputation (pooled C-statistics vs CCA)
+2. Unpenalised Cox (λ=0) vs ridge Cox
+3. Stage-stratified Cox (for PH violations)
+4. Fine–Gray / Aalen–Johansen CIF for competing risks
+
+#### Software
+- State: "All analyses were performed using Python [version] with the lifelines [version] and scikit-learn [version] packages." or R equivalent.
+- State significance level: two-tailed α = 0.05
+
+### 2.6 Ethical Approval
+- IRB/ethics committee name and approval number (replace [XXX/XXXX] placeholder before submission)
+- State whether informed consent required or waived (retrospective registry study)
+- State data anonymisation approach
+
+---
+
+## Writing Style Rules (R4 Standard)
+
+- Past tense throughout ("were included", "was defined")
+- Passive voice preferred for methods; active acceptable for rationale sentences
+- No results in Methods section
+- Numbers in Arabic numerals (e.g., "3 patients", not "three patients")
+- Format: N=2,757 (comma separator); HR 1.75 (95% CI 1.53–2.01); p<0.001
+- Abbreviations: define at first use; maintain throughout
+- Subsections use Heading 2 style
+- No bullet lists inside the Methods prose — convert to flowing sentences
+
+---
 
 ## Required Outputs
 - `manuscript/methods.md` — complete Methods section
-- `analysis/outputs/REPORTING_GUIDELINE_CHECKLIST.md` — item-by-item compliance
+- `analysis/outputs/REPORTING_GUIDELINE_CHECKLIST.md` — item-by-item TRIPOD/STROBE compliance
 
 ## Completion Checklist
-- [ ] All 8 subsections present
+- [ ] All 6 subsections present (Study Design / Participants / Outcomes / Predictors+Missing / Statistical Analysis / Ethics)
+- [ ] Ridge penalization and λ value stated
+- [ ] EPV reported for each outcome
+- [ ] Bootstrap optimism correction protocol described (n resamples)
+- [ ] MICE specification complete (n imputations, variables imputed, pooling method)
+- [ ] Competing risk / CIF analysis described if LR or cause-specific outcome included
+- [ ] Calibration method (E:O + Breslow) described
+- [ ] PH assumption testing described (Schoenfeld) with sensitivity plan
+- [ ] Integer score derivation formula stated
 - [ ] Reporting guideline checklist complete
 - [ ] No results mentioned in Methods
-- [ ] Outcome definition matches GATE 1
-- [ ] Exposure definition matches GATE 1
+- [ ] Outcome definitions match GATE 1
 - [ ] Statistical plan matches Agent 03 SAP
 - [ ] Ethics statement included
 - [ ] Word count within journal limit (check `journal/JOURNAL_TARGET.md`)

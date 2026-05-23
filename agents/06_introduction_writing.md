@@ -10,69 +10,68 @@ Write a journal-grade Introduction section using evidence from the Literature Re
 - `journal/JOURNAL_TARGET.md` — word limit for Introduction
 - GATE 1 study objective
 
-## Introduction Structure (5-paragraph funnel)
+---
 
-### Paragraph 1 - Disease Burden
-- Open with epidemiological impact (global/national prevalence, incidence, mortality)
-- Cite 2-3 high-quality sources (systematic reviews, WHO, national registry data)
-- Establish clinical and public health significance
-- ~100-150 words
+## Introduction Structure (4-paragraph funnel — R4 Standard)
 
-### Paragraph 2 - Current Knowledge
-- Summarize what is currently known about the exposure-outcome relationship
-- Reference landmark studies and recent systematic reviews
-- Identify standard of care or current clinical approach
-- ~100-150 words
+### Paragraph 1 — Global Disease Burden (~120–150 words)
+- Open with epidemiological magnitude (global incidence + mortality, most recent GLOBOCAN or equivalent)
+- Cite 2–3 high-quality sources (GLOBOCAN, Lancet Oncol, CA Cancer J Clin)
+- Establish the clinical and public health significance
+- Transition: "Age-standardised incidence and mortality rates differ substantially across regions..."
 
-### Paragraph 3 - Evidence Gaps / Controversy
-- Identify specific limitation in current literature:
-  - Methodological weakness (small sample, short follow-up, no adjustment)
-  - Population gap (no data from [your population])
-  - Conflicting results (Study A vs Study B)
-  - Timing gap (pre/post guideline change)
-- Cite evidence of the gap, not just assert it
-- ~100-150 words
+### Paragraph 2 — Existing Prognostic Tools and Their Limitations (~150–180 words)
+- Summarise established prediction tools (e.g., NPI, PREDICT, Adjuvant! Online, myBeST)
+- Reference landmark development papers + recent updates
+- Identify key limitation of existing tools relevant to your population:
+  - Tools derived from Western (UK/US) cohorts
+  - Known overoptimism in Asian populations (cite validation studies showing miscalibration)
+  - Different stage distribution, treatment patterns, tumour biology
+- Transition to specific evidence gaps in SE Asian / Thai populations
+- Cite ≥1 paper demonstrating prediction tool performance gap in non-Western setting
 
-### Paragraph 4 - Rationale
-- State why addressing this gap matters
-- Link gap to patient outcomes or clinical decision-making
-- Justify your data source / study design as appropriate to fill this gap
-- ~50-100 words
+### Paragraph 3 — LVI, Molecular Subtype, and Local Context (~120–150 words)
+- State that LVI and molecular subtype are established independent prognostic factors
+- Cite key evidence (Rakha et al., Howlader et al., or equivalent)
+- State the gap: "A notable gap exists in the availability of formal, validated prediction models developed in Thai or broader Southeast Asian populations."
+- If relevant SE Asian model exists (e.g., myBeST), acknowledge it and state why a locally derived model is still needed (different population, different tumour characteristics, different treatment era)
+- This paragraph bridges existing evidence to your institution's need
 
-### Paragraph 5 - Study Objective
-- State objective clearly and specifically
-- Match exactly to GATE 1 approved objective
-- Format: "Therefore, we aimed to [verb] [exposure/intervention] [outcome] [population] [setting/time]"
-- State hypothesis direction if pre-specified
-- ~50 words
+### Paragraph 4 — Rationale and Objective (~60–80 words)
+- State why your data source and setting are appropriate to fill the identified gap
+- Objective sentence format: "Therefore, we aimed to [develop and internally validate / external validate] a [prediction model / scoring system] for [outcomes: OS, DFS, LRFS] in [population] at [institution], [country], treated between [years]."
+- If TRIPOD study: add "This study was conducted and reported in accordance with the TRIPOD statement."
+- Do NOT state hypothesis direction for observational prediction studies
 
-## Writing Style Rules
-- Present tense for established facts ("Hypertension affects...")
-- Past tense for specific study findings ("Smith et al. found...")
-- Each sentence must serve a purpose — no filler
-- Avoid: "It is well known that...", "Many studies have shown..."
+---
+
+## Writing Style Rules (R4 Standard)
+- Present tense for established facts: "Breast cancer is the most common cancer..."
+- Past tense for specific study findings: "Bhoo-Pathy et al. demonstrated..."
+- Each sentence must serve a purpose — no filler transitions
+- Avoid: "It is well known that...", "Many studies have shown...", "Numerous authors..."
 - Use specific numbers and citations, not vague claims
-- Do not describe your results in the Introduction
-- Do not describe your methods in the Introduction
-
-## Citation Style
-Use numbered citations matching `references/KEY_REFERENCES.md`.
-Place citation immediately after the claim it supports.
+- Do NOT describe your methods, results, or data in the Introduction
+- Citations: Vancouver numbered format — place immediately after supported claim
+- No abbreviations introduced without definition at first use
 
 ## Word Count Target
-Check `journal/JOURNAL_TARGET.md` for journal-specific limit.
-Default target: 350-500 words for Introduction.
+- Default: 400–550 words for Introduction
+- Check `journal/JOURNAL_TARGET.md` for journal-specific limit
+
+---
 
 ## Required Output
 - `manuscript/introduction.md` — complete Introduction section
 
 ## Completion Checklist
-- [ ] 5-paragraph funnel structure maintained
-- [ ] Disease burden paragraph opens with epidemiological data + citations
-- [ ] Knowledge gap is specific and cited (not just asserted)
-- [ ] Rationale paragraph connects gap to clinical importance
-- [ ] Objective sentence is specific, measurable, matches GATE 1
+- [ ] 4-paragraph funnel structure maintained (burden → tools + limitations → SE Asian gap → objective)
+- [ ] Paragraph 1 opens with specific global epidemiological numbers + citations
+- [ ] Paragraph 2 names specific tools (NPI/PREDICT/Adjuvant! or equivalent) with their limitations in Asian populations
+- [ ] Paragraph 3 states specific knowledge gap with evidence (not just asserted)
+- [ ] Paragraph 4 objective sentence is specific, measurable, matches GATE 1 — ends with TRIPOD compliance statement if applicable
 - [ ] No methods or results described
 - [ ] Word count within target
 - [ ] All citations match `references/KEY_REFERENCES.md`
 - [ ] No unverified claims
+- [ ] No fabricated references
