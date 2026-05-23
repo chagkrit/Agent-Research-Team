@@ -1,14 +1,22 @@
 {
   "name": "agent-research-team",
   "owner": {
-    "name": "chagkrit"
+    "name": "chagkrit",
+    "url": "https://github.com/chagkrit"
   },
-  "description": "Research Manuscript Agent System — 12-agent pipeline for publication-quality academic manuscripts",
+  "metadata": {
+    "description": "Research Manuscript Agent System — 12-agent pipeline for publication-quality academic manuscripts",
+    "version": "1.0.0"
+  },
   "plugins": [
     {
       "name": "research-manuscript",
-      "source": ".",
-      "description": "End-to-end manuscript pipeline: data cleaning → statistics → writing → peer review simulation → submission"
+      "description": "End-to-end manuscript pipeline: data cleaning → statistics → writing → peer review simulation → submission",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/research-manuscript"
+      ]
     }
   ]
 }
