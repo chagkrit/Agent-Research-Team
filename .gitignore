@@ -1,0 +1,49 @@
+# Sensitive research data — never commit raw/cleaned data
+data/raw/*
+data/cleaned/*
+!data/raw/.gitkeep
+!data/cleaned/.gitkeep
+!data/dictionary/.gitkeep
+
+# Analysis outputs (generated, not source)
+analysis/outputs/figures/
+figures/outputs/*
+!figures/outputs/.gitkeep
+
+# Submission package (generated)
+submission/TABLES/*
+submission/FIGURES/*
+submission/SUPPLEMENTARY/*
+!submission/TABLES/.gitkeep
+!submission/FIGURES/.gitkeep
+!submission/SUPPLEMENTARY/.gitkeep
+
+# Data files
+*.csv
+*.xlsx
+*.xls
+*.sav
+*.dta
+*.sas7bdat
+*.rds
+*.RData
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.pyc
+.env
+venv/
+
+# R
+.Rhistory
+.Rproj.user/

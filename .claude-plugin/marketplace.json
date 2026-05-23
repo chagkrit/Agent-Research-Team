@@ -1,0 +1,14 @@
+{
+  "name": "agent-research-team",
+  "owner": {
+    "name": "chagkrit"
+  },
+  "description": "Research Manuscript Agent System — 12-agent pipeline for publication-quality academic manuscripts",
+  "plugins": [
+    {
+      "name": "research-manuscript",
+      "source": ".",
+      "description": "End-to-end manuscript pipeline: data cleaning → statistics → writing → peer review simulation → submission"
+    }
+  ]
+}

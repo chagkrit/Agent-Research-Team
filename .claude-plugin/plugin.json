@@ -1,0 +1,9 @@
+{
+  "name": "research-manuscript",
+  "description": "12 specialized agents orchestrated by Research Director for academic manuscript production. Supports cohort, case-control, prediction model, survival analysis, systematic review, and RCT study designs.",
+  "version": "1.0.0",
+  "author": "chagkrit",
+  "license": "MIT",
+  "keywords": ["research", "manuscript", "academic", "medical", "statistics", "clinical", "publication"],
+  "skills": ["skills/research-manuscript"]
+}
