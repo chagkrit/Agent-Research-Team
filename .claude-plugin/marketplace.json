@@ -12,6 +12,7 @@
     {
       "name": "research-manuscript",
       "description": "End-to-end manuscript pipeline: data cleaning → statistics → writing → peer review simulation → submission",
+      "version": "1.0.0",
       "source": "./",
       "strict": false,
       "skills": [
