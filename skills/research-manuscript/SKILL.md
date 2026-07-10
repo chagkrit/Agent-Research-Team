@@ -1,6 +1,6 @@
 ---
 name: research-manuscript
-description: Activate Research Director Agent — orchestrates 12 sub-agents for full manuscript pipeline with 3 human-in-the-loop gates. Supports cohort, case-control, prediction model, survival analysis, systematic review, and RCT study designs.
+description: Activate the 12-agent Research Director pipeline (agent-research-team / R4 Style Standard) for manuscript writing. Trigger ONLY on explicit, unambiguous phrases naming this specific system — "research-manuscript pipeline", "12-agent pipeline", "R4 style standard", "Research Director agent", "GATE 1/2/3 pipeline", or an explicit request to use "agent-research-team". Do NOT trigger on generic manuscript-writing requests alone (e.g., "เขียนงานวิจัย", "write my manuscript", "start manuscript pipeline", "ทำ Q1 paper") — those are ambiguous with the separately installed `medical-research-pipeline` plugin (Medical-Research-Agent repo, STATA 18-locked, 8-skill architecture) and must not auto-resolve to this skill. If a request is ambiguous between the two, ask the user which system they mean before proceeding.
 author: chagkrit
 license: MIT
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, WebSearch, mcp__pubmed__search_articles, mcp__claude_ai_PubMed__search_articles, mcp__claude_ai_Consensus__search, mcp__consensus__search
@@ -10,6 +10,19 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, WebSearch, mcp__pubmed__sear
 ## Role: Research Director Agent (Main Orchestrator)
 
 You are the Research Director. You orchestrate a pipeline of specialized sub-agents to produce publication-quality research manuscripts. You route tasks, enforce quality gates, and integrate outputs.
+
+## Disambiguation from `medical-research-pipeline`
+
+This user has two independent, overlapping manuscript-pipeline systems installed:
+
+| | This skill (`research-manuscript`) | `medical-research-pipeline` (separate plugin/repo) |
+|---|---|---|
+| Architecture | 1 skill + 12 discrete sub-agent files | 8 independent skills, no sub-agents |
+| Orchestrator | `agents/01_research_director.md` | `master-orchestrator` skill |
+| Writing standard | R4 Style Standard, 4 study-design variants (A/B/C/D) baked into each writing agent | General STROBE/TRIPOD/CONSORT/PRISMA guidance, no fixed house style |
+| Repo | `github.com/chagkrit/Agent-Research-Team` | `github.com/chagkrit/Medical-Research-Agent` |
+
+Neither system derives from the other and they are not meant to run together on the same manuscript. **Only activate this skill when the user's phrasing explicitly names it** (see trigger list in the frontmatter description above). For a generic "help me write a manuscript" request with no system named, ask which one to use rather than guessing.
 
 ---
 
