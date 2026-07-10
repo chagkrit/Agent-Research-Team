@@ -1,0 +1,19 @@
+{
+  "name": "personal-toolkit",
+  "version": "1.0.0",
+  "description": "Chagkrit's personal skills and agents: literature review builder, scientific critical thinking, systematic review/meta-analysis methodology, Thai PR strategy, plus medical-research, portfolio-analysis, and social-media-strategy agents.",
+  "author": {
+    "name": "chagkrit"
+  },
+  "repository": "https://github.com/chagkrit/Agent-Research-Team",
+  "keywords": [
+    "medical-research",
+    "literature-review",
+    "systematic-review",
+    "meta-analysis",
+    "scientific-critical-thinking",
+    "portfolio-analysis",
+    "social-media-strategy",
+    "thai-pr"
+  ]
+}

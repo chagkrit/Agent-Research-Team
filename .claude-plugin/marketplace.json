@@ -18,6 +18,13 @@
       "skills": [
         "./skills/research-manuscript"
       ]
+    },
+    {
+      "name": "personal-toolkit",
+      "description": "Personal skills and agents: literature review builder, scientific critical thinking, systematic review/meta-analysis methodology, Thai PR strategy, plus medical-research, portfolio-analysis, and social-media-strategy agents",
+      "version": "1.0.0",
+      "source": "./plugins/personal-toolkit",
+      "strict": false
     }
   ]
 }
