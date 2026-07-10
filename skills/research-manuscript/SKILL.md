@@ -17,34 +17,36 @@ You are the Research Director. You orchestrate a pipeline of specialized sub-age
 
 All writing agents follow the **R4 Style Standard** derived from `Clinical_Prediction_Model_R4_Expanded.docx`. Key rules:
 
-### Language and Register
+### Language and Register — shared across every study design
 - Academic, formal, third-person passive for Methods; active acceptable for Discussion rationale
 - Past tense for own results; present tense for established facts and prior literature
 - No padding, no filler transitions ("It is well known that...", "Many studies have shown...")
-- Hedging mandatory for observational data: "suggest", "may inform", "associated with", "pending external validation"
+- Hedging calibrated to design: observational designs (cohort/case-control/cross-sectional/prediction model) mandate "suggest", "may inform", "associated with", "pending external validation"; RCTs may state a direct causal effect for the ITT estimate; SR/MA hedges by GRADE certainty level
 - For prediction models specifically: never write "can be used to guide treatment" — write "may inform clinical prognostication pending external validation"
 
-### Number and Statistical Formatting
+### Number and Statistical Formatting — shared across every study design
 - N=2,757 (comma thousand separator, no space around =)
-- HR 1.75, 95% CI 1.53–2.01 (en-dash, two decimal places)
+- HR/OR/RR 1.75, 95% CI 1.53–2.01 (en-dash, two decimal places)
 - p<0.001 or exact p to 3 decimal places (e.g., p=0.016)
-- C-statistic to 3 decimal places (e.g., 0.708)
+- C-statistic / I² to 3 decimal places / 1 decimal place respectively (e.g., 0.708; I²=42.3%)
 - E:O ratios to 3 decimal places
 - Percentages to 1 decimal place (e.g., 79.3%)
 - IQR in parentheses: median 7.1 years (IQR 3.1–10.0)
 
-### Section Structure (Clinical Prediction Model)
-| Section | Subsections |
-|---|---|
-| Abstract | Background / Methods / Results / Conclusions (structured) |
-| Introduction | 4 paragraphs: Burden → Tools+Limitations → SE Asian gap → Objective |
-| Methods | Study Design and Setting / Participants / Outcome Definitions / Predictor Variables and Missing Data / Statistical Analysis / Ethical Approval |
-| Results | Cohort Characteristics → Survival Estimates → Univariable Cox → Multivariable + Performance → MICE Sensitivity → PH Diagnostics → Risk Groups + Calibration → Competing Risk |
-| Discussion | Principal Findings → Prior Literature → Methodological Points → Clinical Implications → Strengths → Limitations → Future Research → Conclusion |
-| End matter | Tables / Figure Legends / Supplementary Materials / References |
+### Section Structure — varies by study design
+The R4 Style Standard's language, number formatting, and reference rules above apply identically to every design. The Methods/Results/Discussion **subsection structure and required statistical elements differ by study design** — each writing agent (04 Methods, 06 Introduction, 07 Results, 09 Discussion) selects the matching variant from its own file based on GATE 1's study design:
 
-### Required Statistical Elements for Prediction Models
-Every prediction model manuscript MUST include ALL of the following:
+| Study Design | Reporting Guideline | Variant Letter (in agents 04/06/07/09) |
+|---|---|---|
+| Clinical prediction model (TRIPOD) / ML prediction model (TRIPOD-AI) / survival analysis building a model or score | TRIPOD / TRIPOD-AI | **A** |
+| Retrospective/prospective cohort, case-control, cross-sectional | STROBE | **B** |
+| RCT | CONSORT | **C** |
+| Systematic review / meta-analysis | PRISMA | **D** |
+
+Do not apply Variant A's prediction-model-specific requirements (ridge penalisation, EPV, bootstrap optimism correction, TRIPOD item 15a, etc.) to a Variant B/C/D manuscript — each variant has its own "Required Statistical Elements" / completion checklist inside its agent file. See each agent's file for the full subsection breakdown and word-count targets.
+
+### Required Statistical Elements for Prediction Models (Variant A only)
+Every prediction model / survival-model manuscript MUST include ALL of the following (see `agents/03_statistical_analysis.md` and `agents/04_methodology_writing.md` Variant A for the full detail):
 - [ ] EPV stated for each outcome (flag EPV <10 as "cautious interpretation")
 - [ ] Ridge penalisation λ value and λ=0 sensitivity result
 - [ ] Bootstrap optimism correction: n resamples, apparent C, optimism, corrected C, 95% CI
@@ -57,7 +59,12 @@ Every prediction model manuscript MUST include ALL of the following:
 - [ ] Integer clinical score chart with derivation formula
 - [ ] TRIPOD item 15a: full β coefficients + SE + S₀(t) in supplementary
 
-### Reference Format
+For Variant B (STROBE), C (CONSORT), and D (PRISMA) required elements, see each agent file's own "Required Statistical Elements" / completion checklist sections — they differ substantially from the prediction-model list above (e.g., Variant D requires GRADE certainty ratings and publication-bias testing instead).
+
+### Statistical Software — MANDATORY, all variants
+**All statistical analyses MUST be performed in STATA 18.** No Python, R, or SPSS, regardless of study design. See `agents/03_statistical_analysis.md` for the STATA command mapping per method.
+
+### Reference Format — shared across every study design
 - Vancouver numbered
 - Format: Authors. Title. Journal. Year;Vol(Issue):Pages. doi:xxx [PMID xxxxxxx]
 - All in-text citations as [n] immediately after supported claim

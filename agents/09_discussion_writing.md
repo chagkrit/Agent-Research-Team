@@ -14,7 +14,20 @@ Write Discussion section by contextualising results within existing literature. 
 
 ---
 
-## Discussion Structure (R4 Standard)
+## Discussion Structure — select the variant matching GATE 1's study design
+
+| GATE 1 Study Design | Use Variant |
+|---|---|
+| Clinical prediction model (TRIPOD/TRIPOD-AI), survival analysis building a model/score | **Variant A** |
+| Cohort, case-control, cross-sectional (etiologic/descriptive) | **Variant B** |
+| RCT | **Variant C** |
+| Systematic review / meta-analysis | **Variant D** |
+
+All variants share the **Writing Rules (R4 Standard)** near the bottom of this file.
+
+---
+
+## Variant A — Clinical Prediction Model / Survival Analysis (R4 Standard)
 
 ### 4.1 Principal Findings (~150 words)
 - Open: "This study developed and internally validated a [prediction model / Cox regression model] for [outcomes] in a [study design] of [N] [population] treated between [years] at [institution]."
@@ -99,13 +112,143 @@ State 2–3 specific, actionable directions:
 
 ---
 
-## Writing Rules (R4 Standard)
+## Variant B — Cohort / Case-Control / Cross-Sectional (STROBE)
+
+### B.1 Principal Findings (~150 words)
+- Open: "This [cohort/case-control/cross-sectional] study examined the association between [exposure] and [outcome] in [N] [population] at [institution]."
+- State the main finding with effect size: "[Exposure] was associated with [outcome] (adjusted OR/RR/HR [x.xx], 95% CI [x.xx]–[x.xx])."
+- Do NOT repeat raw numbers already fully stated in Results
+
+### B.2 Comparison with Previous Studies (~250–350 words)
+- State what previous studies found on the same association; compare direction, magnitude, CI overlap
+- Explain reasons for agreement or disagreement: population differences, exposure/outcome measurement, confounders adjusted, study design (this study vs prior cohort/case-control)
+- Cite specific papers with their effect estimates
+
+### B.3 Methodological Points (~150–200 words)
+Address each key methodological decision, using language proportionate to actual severity:
+- **Confounding**: which confounders were adjusted for and why residual confounding may remain (unmeasured variables)
+- **Selection bias** (case-control): how controls were selected and whether this could bias the OR toward/away from the null
+- **Information/recall bias**: how exposure/outcome were ascertained and susceptibility to misclassification
+- **Reverse causation** (cross-sectional/case-control): whether temporality between exposure and outcome can be established
+- **Missing data**: CCA vs imputation, and whether MAR is plausible
+
+### B.4 Clinical/Public Health Implications (~120 words)
+- State who benefits from this finding and what decision it could inform
+- Use hedging appropriate to observational design: "associated with", "may contribute to" — never "causes" unless causal inference methods were explicitly used and justified
+- Do NOT overclaim causation from an observational design
+
+### B.5 Strengths (~80 words)
+- List 3–4 genuine strengths: sample size, prospective design (if applicable), validated exposure/outcome measurement, adjustment for key confounders, generalisability of the source population
+
+### B.6 Limitations (~150–200 words)
+Address, as applicable to the design:
+1. **Residual/unmeasured confounding** — name specific plausible unmeasured confounders
+2. **Selection bias** — direction and likely magnitude if estimable
+3. **Information bias** — exposure/outcome misclassification and likely direction (toward/away from null)
+4. **Temporality** (cross-sectional/case-control) — cannot establish which came first
+5. **Generalisability** — single-centre/registry-specific limitations
+6. **Missing data** — proportion excluded and assumption required
+
+Do NOT soften with "however, our study has several strengths." Limitations stand alone.
+
+### B.7 Future Research (~60 words)
+- State 2–3 specific directions: replication in another population, prospective design to address temporality, additional confounder measurement
+
+### B.8 Conclusion (~80 words, also written to `manuscript/conclusion.md`)
+- Restate the main association finding with hedged causal language
+- Match exactly to study objective from GATE 1
+
+---
+
+## Variant C — RCT (CONSORT)
+
+### C.1 Principal Findings (~150 words)
+- Open: "This randomised controlled trial evaluated [intervention] versus [comparator] for [primary outcome] in [N] [population] at [site(s)]."
+- State the primary outcome result with effect estimate and whether the pre-specified hypothesis (superiority/non-inferiority) was met
+
+### C.2 Comparison with Previous Trials (~250–350 words)
+- Compare with existing trial evidence/meta-analyses on the same question: direction, magnitude, consistency
+- Explain differences in population, dose/regimen, comparator, follow-up duration, or outcome definition
+
+### C.3 Internal Validity (~150–200 words)
+- Assess whether randomisation achieved balance (reference baseline table)
+- Assess adequacy of blinding and any potential for detection/performance bias
+- Assess adherence/protocol deviations and their likely impact on the ITT estimate
+- Assess completeness of follow-up and handling of missing outcome data
+
+### C.4 Clinical Implications (~120 words)
+- State the practical treatment decision this finding supports, and for which patient population specifically
+- Do NOT overstate: a single trial rarely changes practice alone unless pre-specified as definitive/pivotal
+
+### C.5 Strengths (~80 words)
+- Randomisation and allocation concealment, blinding achieved, pre-registration, low loss to follow-up, adequately powered
+
+### C.6 Limitations (~150–200 words)
+1. **External validity** — how representative the trial population is of the broader treatment-eligible population (eligibility criteria restrictiveness)
+2. **Blinding limitations** — if open-label or blinding imperfect, state impact
+3. **Duration of follow-up** — whether long-term outcomes/harms are captured
+4. **Protocol deviations/non-adherence** — magnitude and likely direction of bias
+5. **Generalisability** — single-site vs multi-site, healthcare-system specific factors
+
+### C.7 Future Research (~60 words)
+- Longer-term follow-up, replication in a broader/different population, head-to-head trial against another active comparator
+
+### C.8 Conclusion (~80 words, also written to `manuscript/conclusion.md`)
+- Restate the primary result and whether it supports a change in practice
+- Match exactly to the pre-specified hypothesis from GATE 1
+
+---
+
+## Variant D — Systematic Review / Meta-analysis (PRISMA)
+
+### D.1 Summary of Main Findings (~150 words)
+- Open: "This systematic review and meta-analysis of [n] studies ([N] participants) examined [PICO question]."
+- State the pooled effect estimate, 95% CI, and direction of effect
+
+### D.2 Comparison with Previous Reviews (~200–300 words)
+- Compare with prior systematic reviews on the same question: consistency of pooled estimate, additional studies now included, methodological differences (search date, eligibility, RoB tool)
+- If this review updates a prior one, state what changed and why (new trials, corrected data, refined eligibility)
+
+### D.3 Interpretation of Heterogeneity and Risk of Bias (~150–200 words)
+- Interpret the I² value in context: what it implies about consistency of effect across studies
+- Discuss whether subgroup/meta-regression explained heterogeneity, or whether it remains unexplained
+- Discuss how risk-of-bias distribution across included studies affects confidence in the pooled estimate (e.g., "sensitivity analysis restricted to low-risk-of-bias studies yielded a consistent/attenuated estimate of [x.xx]")
+
+### D.4 Certainty of Evidence (~100 words)
+- State the GRADE certainty rating per outcome and the primary reasons for downgrading (risk of bias, inconsistency, indirectness, imprecision, publication bias)
+- State what this certainty level means for confidence in the estimate
+
+### D.5 Clinical/Policy Implications (~120 words)
+- State what decision-makers (clinicians, guideline panels) can reasonably conclude given the certainty level
+- Do NOT recommend a practice change from low/very-low certainty evidence without explicit qualification
+
+### D.6 Strengths (~80 words)
+- Comprehensive search strategy, pre-registered protocol, dual independent screening/extraction, formal risk-of-bias and GRADE assessment
+
+### D.7 Limitations (~150–200 words)
+1. **Heterogeneity** — clinical/methodological heterogeneity across included studies limiting pooled interpretation
+2. **Risk of bias in included studies** — specific domains most commonly at high/unclear risk
+3. **Publication bias** — possibility of unpublished null/negative studies, especially if funnel plot asymmetric or <10 studies precluded formal testing
+4. **Language/database restrictions** — studies potentially missed
+5. **Indirectness** — if included populations/interventions vary from the review question
+
+### D.8 Future Research (~60 words)
+- State specific evidence gaps: populations/subgroups needing dedicated trials, outcomes not yet measured consistently, need for standardised outcome reporting
+
+### D.9 Conclusion (~80 words, also written to `manuscript/conclusion.md`)
+- Restate the pooled estimate and certainty level
+- State the practical implication proportionate to that certainty level
+- Match exactly to the review's PICO(S) objective from GATE 1
+
+---
+
+## Writing Rules (R4 Standard) — shared across all variants
 - Past tense for your own results; present tense for established facts and prior literature
-- Hedging language mandatory for observational prediction models: "suggest", "may inform", "associated with", "pending external validation" — never "proves", "causes", "can be used to guide"
-- Every comparison to prior literature must cite specific paper with HR/C-stat values
+- Hedging language calibrated to design: observational designs (A/B) mandate "suggest", "may inform", "associated with", "pending external validation" — never "proves", "causes", "can be used to guide"; RCTs (C) may state a causal effect directly since randomisation supports causal inference for the ITT estimate; SR/MA (D) hedges by GRADE certainty level, not by design alone
+- Every comparison to prior literature must cite a specific paper with its effect size
 - No new results introduced in Discussion
-- Limitations must be proportionate — state "major" when major (e.g., 46.6% CCA exclusion)
-- Use "internally validated" not "validated" — reserve "validated" for external validation
+- Limitations must be proportionate — state "major" when major (e.g., large CCA exclusion, high heterogeneity, high risk of bias in most included studies)
+- Variant A: use "internally validated" not "validated" — reserve "validated" for external validation
 
 ---
 
@@ -114,17 +257,36 @@ State 2–3 specific, actionable directions:
 - `manuscript/limitations_section.md` — standalone limitations (for GATE 3 review)
 - `manuscript/conclusion.md` — standalone Conclusion paragraph
 
-## Completion Checklist
-- [ ] All 8 subsections present
-- [ ] Principal findings open with study design + N + key C-stat
+## Completion Checklist — shared across all variants
+- [ ] Correct variant selected for GATE 1's study design (A/B/C/D)
+- [ ] All subsections of the chosen variant present
+- [ ] Principal findings open with study design + N + key effect estimate
 - [ ] Prior literature comparisons cite specific papers with effect sizes
+- [ ] Limitations are honest, quantified, and not minimised
+- [ ] Conclusion matches GATE 1 objective
+- [ ] Word count within journal limit
+- [ ] No new results introduced
+
+## Completion Checklist — Variant A only
 - [ ] Missing data addressed as "major limitation" if CCA exclusion >30%
 - [ ] PH violations discussed with stratified sensitivity results
 - [ ] EPV limitation stated for low-EPV models
 - [ ] Ridge penalisation sensitivity stated
 - [ ] Competing risk (Aalen–Johansen vs KM) discussed
 - [ ] Clinical implications use mandated hedging: "pending external validation"
-- [ ] Limitations are honest, quantified, and not minimised
-- [ ] Conclusion matches GATE 1 objective
-- [ ] Word count within journal limit
-- [ ] No new results introduced
+
+## Completion Checklist — Variant B only
+- [ ] Confounding, selection bias, and information bias each explicitly addressed
+- [ ] No causal language used without explicit justification
+- [ ] Temporality limitation stated for cross-sectional/case-control designs
+
+## Completion Checklist — Variant C only
+- [ ] Internal validity (randomisation balance, blinding, adherence) explicitly assessed
+- [ ] External validity/generalisability of trial population addressed
+- [ ] Conclusion states whether the pre-specified hypothesis was met
+
+## Completion Checklist — Variant D only
+- [ ] GRADE certainty rating and downgrading reasons stated per outcome
+- [ ] Heterogeneity (I²) interpreted, not just reported
+- [ ] Publication bias discussed (or explicitly noted as untestable with <10 studies)
+- [ ] Clinical/policy implications proportionate to certainty level
