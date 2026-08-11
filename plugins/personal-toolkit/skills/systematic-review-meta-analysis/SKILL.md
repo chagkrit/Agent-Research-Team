@@ -1,6 +1,16 @@
 ---
 name: systematic-review-meta-analysis
-description: Guides the full design, conduct, and publication of a systematic review and/or meta-analysis in medical research, following the peer-reviewed 24-step methodology (Muka et al. 2020, Eur J Epidemiol). Use this whenever the user is starting, planning, or working through any stage of a systematic review or meta-analysis — defining a research question with PICO(S)/PECO, writing or registering a protocol (PROSPERO/Cochrane), building a multi-database search strategy (MEDLINE, Embase, Web of Science, Google Scholar, Cochrane), deduplication, title/abstract or full-text screening, drawing a PRISMA flow diagram, designing a data extraction form, assessing risk of bias (RoB 2, Newcastle-Ottawa, QUADAS-2, QUIPS, PROBAST), deciding whether to pool data, choosing fixed- vs random-effects models, exploring heterogeneity or running subgroup/meta-regression analyses, checking publication bias (funnel plot, Egger's/Begg's test), grading evidence quality with GRADE, or preparing the manuscript/PRISMA checklist for submission. Trigger even when the user doesn't name a specific step — phrases like "meta-analysis", "systematic review", "SR/MA", "PRISMA", "PROSPERO", "forest plot", "pool the studies", "risk of bias", "heterogeneity", "I2", "publication bias", "search strategy for a review", or "ทำ systematic review", "ทำ meta-analysis", "ทบทวนวรรณกรรมเชิงระบบ" are all strong signals to use this skill.
+description: >
+  Guide the full design, conduct, and publication of medical systematic reviews
+  and meta-analyses using the Muka et al. 24-step method. Use for PICO or PECO
+  questions, PROSPERO or Cochrane protocols, multi-database searches,
+  deduplication, screening, PRISMA flow diagrams, extraction forms, risk-of-bias
+  tools, pooling decisions, fixed- or random-effects models, heterogeneity,
+  subgroup or meta-regression analyses, publication bias, GRADE, and manuscript
+  or PRISMA-checklist preparation. Trigger on "systematic review",
+  "meta-analysis", "SR/MA", "PRISMA", "PROSPERO", "forest plot", "risk of
+  bias", "heterogeneity", "I2", "publication bias", "ทำ systematic review",
+  "ทำ meta-analysis", or "ทบทวนวรรณกรรมเชิงระบบ".
 ---
 
 # Systematic Review & Meta-Analysis (24-Step Guide)

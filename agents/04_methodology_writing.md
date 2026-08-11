@@ -8,8 +8,17 @@ Write the Methods section following the correct reporting guideline for the stud
 - `data/cleaned/DATA_CLEANING_REPORT.md`
 - `data/cleaned/ANALYTIC_COHORT_FLOW.md`
 - `analysis/outputs/STATISTICAL_ANALYSIS_PLAN.md`
+- `data/cleaned/analytic_cohort.dta`
+- `analysis/scripts/*.do` and matching successful `analysis/logs/*.log`
+- `analysis/results-ledger.csv`
 - GATE 1 approval (study design, population, outcome, exposure)
 - `journal/JOURNAL_TARGET.md` (if available — for word count and style)
+
+## Code-before-prose gate
+
+Before drafting, run `ls -la -t` on all required input directories and record the current paths in `PIPELINE_STATE.md`. Do not state that any data cleaning, derivation, test, model, diagnostic, imputation, validation, or sensitivity analysis was performed unless the corresponding STATA 18 `.do` file exists and a successful `.log` records the run. Planned but unexecuted methods belong only in the SAP and must be labeled planned.
+
+Copy any numeric Methods detail (sample-size assumptions, number of imputations, bootstrap repetitions, thresholds actually used) from `analysis/results-ledger.csv` or the verified source `.do`/`.log`; never type it from memory.
 
 ## Reporting Guideline Selection
 
@@ -66,7 +75,7 @@ All variants share the same **Writing Style Rules (R4 Standard)** at the bottom 
 - Quantify missingness: "Missing data were present for [variable] ([n] missing, [%]%)."
 - State missing data strategy:
   - Complete-case analysis (CCA) as primary: state assumption (MAR)
-  - Multiple imputation (MICE) as pre-specified sensitivity: state number of imputations, imputed variables, algorithm (e.g., IterativeImputer / mice package), pooling method (Rubin's rules)
+  - Multiple imputation (MICE) as pre-specified sensitivity: state number of imputations, imputed variables, STATA 18 `mi impute chained` specification, and Rubin's-rules pooling
   - Do NOT use Ki-67 or high-missingness variables in the primary model without justification
 
 ### 2.5 Statistical Analysis
@@ -250,7 +259,7 @@ List all pre-specified sensitivity analyses:
 
 ---
 
-## Writing Style Rules (R4 Standard)
+## Writing style rules — mandatory NEJM/Lancet discipline plus R4 structure
 
 - Past tense throughout ("were included", "was defined")
 - Passive voice preferred for methods; active acceptable for rationale sentences
@@ -260,6 +269,8 @@ List all pre-specified sensitivity analyses:
 - Abbreviations: define at first use; maintain throughout
 - Subsections use Heading 2 style
 - No bullet lists inside the Methods prose — convert to flowing sentences
+- Use concise, declarative clinical-journal prose. Remove redundant/repetitive descriptions, stock transitions, vague intensifiers, and AI-style boilerplate.
+- Do not copy wording from NEJM or Lancet articles; follow the selected journal's author instructions and shared editorial discipline.
 
 ---
 
@@ -274,6 +285,9 @@ List all pre-specified sensitivity analyses:
 - [ ] No results mentioned in Methods
 - [ ] Outcome/exposure definitions match GATE 1
 - [ ] Statistical plan matches Agent 03 SAP, and states STATA 18 as the sole software
+- [ ] Every claimed analytic method has a real STATA `.do`/successful `.log` pair
+- [ ] Numeric method details were copied from verified provenance, not typed from memory
+- [ ] NEJM/Lancet editorial pass found no redundant, repetitive, or AI-style prose
 - [ ] Ethics/registration statement included (or protocol registration for Variant D)
 - [ ] Word count within journal limit (check `journal/JOURNAL_TARGET.md`)
 

@@ -3,6 +3,14 @@
 ## Role
 Examine dataset, create data dictionary, prepare analytic cohort, document all decisions.
 
+## Software and provenance — mandatory
+
+Perform all data import, cleaning, recoding, derivation, and cohort construction in STATA 18. Do not use Python, R, SPSS, Excel formulas, or manual spreadsheet edits to create the analytic dataset.
+
+Before opening data, run `ls -la -t` on `data/raw/`, `data/cleaned/`, `analysis/scripts/`, and `analysis/logs/`; record the selected current input and timestamps in `PIPELINE_STATE.md`.
+
+Write `analysis/scripts/01_data_cleaning.do`, open `analysis/logs/01_data_cleaning.log`, record `version 18`, import the raw source with an explicit path, run all checks/recodes, and save `data/cleaned/analytic_cohort.dta`. The log must end without unresolved STATA errors. Never overwrite the raw source.
+
 ## Required Inputs
 - Raw dataset (path: `data/raw/`)
 - Study design from GATE 1 approval
@@ -65,6 +73,9 @@ Write all outputs before marking step complete:
 - `data/cleaned/ANALYTIC_COHORT_FLOW.md` — flowchart in text
 - `data/cleaned/MISSING_DATA_SUMMARY.md` — missing data strategy
 - `data/cleaned/clean_dataset_description.md` — final cohort description
+- `data/cleaned/analytic_cohort.dta` — analysis-ready STATA dataset
+- `analysis/scripts/01_data_cleaning.do` — complete reproducible import/cleaning code
+- `analysis/logs/01_data_cleaning.log` — successful STATA 18 execution log
 
 ## Completion Checklist
 - [ ] Variable names standardized
@@ -76,6 +87,9 @@ Write all outputs before marking step complete:
 - [ ] Exclusion flowchart complete
 - [ ] No duplicate records remain
 - [ ] Date logic verified
+- [ ] Live file inventory checked with `ls -la -t` and current raw input recorded
+- [ ] STATA 18 was the sole engine used to create the analytic dataset
+- [ ] `.dta`, `.do`, and matching successful `.log` exist and identify each other
 
 ## Pass to Research Director
 Return summary: N_final, missing data approach, key exclusions, any data quality concerns.

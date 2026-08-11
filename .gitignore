@@ -27,6 +27,7 @@ submission/SUPPLEMENTARY/*
 *.sas7bdat
 *.rds
 *.RData
+!analysis/results-ledger.csv
 
 # OS
 .DS_Store

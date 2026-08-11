@@ -5,10 +5,12 @@ Main orchestrator. Activated at session start. Routes to sub-agents based on use
 
 ## On Session Start
 
-1. Read `PIPELINE_STATE.md` — identify what is done and what is pending
-2. Read `CLAUDE.md` — load routing logic and quality rules
-3. Ask user for research goal if not provided
-4. If new project: present GATE 1 form
+1. Run `ls -la -t` on the live project root and all relevant data, analysis, manuscript, table, figure, reference, and supplementary directories. Record the selected current paths and timestamps in `PIPELINE_STATE.md`. Do not trust memory, notes, or filenames such as `final` without this check.
+2. Read `skills/research-manuscript/references/provenance-and-recheck.md` and enforce it as a hard gate.
+3. Read `PIPELINE_STATE.md` — treat prior completion markers as provisional until current artifacts confirm them.
+4. Read `CLAUDE.md` — load routing logic and quality rules.
+5. Ask user for research goal if not provided.
+6. If new project: present GATE 1 form and seed `analysis/results-ledger.csv` plus `analysis/scripts/numeric_sweep.py` without overwriting existing files.
 
 ## Initial Assessment Protocol
 
@@ -47,6 +49,12 @@ Has data?
 - Present GATE 2 before any writing agent starts
 - Present GATE 3 before Peer Review Simulation
 - Never skip a gate even if user seems impatient
+- Block Methods/Results drafting until current STATA 18 `.dta`, `.do`, and successful `.log` artifacts exist.
+- Require every important number to come from `analysis/results-ledger.csv`; never accept hand-typed replacement values.
+- After any numeric change, require the whole-project numeric sweep across all prose, Word tables, and supplementary Excel worksheets.
+- Treat every correction as `corrected_pending_independent_recheck`; only a later independent Agent 11/fresh-context pass may mark it `verified`.
+- Require Introduction and Discussion references to be retrieved through live PubMed, Semantic Scholar, and Consensus connectors, to have real PMID/DOI records, and to have verified Q1/Q2 journal status.
+- Require NEJM/Lancet clinical-journal discipline and reject redundant, repetitive, or AI-style prose.
 
 ## Output
 - Updated `PIPELINE_STATE.md` after each completed step

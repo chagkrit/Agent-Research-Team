@@ -7,6 +7,10 @@ library เป็น .csv (synthesis-matrix.csv จาก lr-builder, คอล�
 year/title), .bib (BibTeX), .json (CSL-JSON) — ถ้ามีไฟล์ export จาก reference
 manager ภายนอกอยู่แล้วก็ยังใช้ได้เหมือนเดิม
 
+เมื่อ input เป็น synthesis-matrix.csv สคริปต์จะ fail closed หากแถวใดไม่มี
+live connector/query provenance, PMID/DOI/record URL, หรือ Q1/Q2 verification
+จากฐานจัดอันดับที่ระบุ source/category/year/date ครบ
+
 ข้อจำกัดที่ผู้ใช้ต้องรู้:
 - ใช้ไม่ได้กับระบบอ้างอิงแบบตัวเลข (Vancouver) — ต้องตรวจมือ
 - จับ "(ชื่อ, ปี)" และ "ชื่อ (ปี)" เป็นหลัก รูปแบบนอกเหนือจากนี้อาจหลุด
@@ -52,6 +56,7 @@ def name_tokens(text: str) -> set:
 def load_library(path: Path):
     """คืน list ของ dict: {key, authors(set ของ token), years(set ของปีทั้ง พ.ศ./ค.ศ.), label}"""
     items = []
+    integrity_errors = []
 
     def add(key, author_text, year_text, label):
         years = set(re.findall(YEAR_RE, str(year_text or "")))
@@ -70,8 +75,30 @@ def load_library(path: Path):
     suffix = path.suffix.lower()
     if suffix == ".csv":
         with open(path, newline="", encoding="utf-8-sig", errors="ignore") as f:
-            for row in csv.DictReader(f):
+            reader = csv.DictReader(f)
+            matrix_mode = "paper_id" in {str(name or "").lower().strip() for name in (reader.fieldnames or [])}
+            required_matrix_fields = {
+                "paper_id", "source_db", "connector_tool", "search_query", "retrieved_date",
+                "record_url", "authors", "title", "year", "journal", "journal_issn",
+                "quartile", "quartile_source", "quartile_category", "quartile_year",
+                "quartile_verified_at",
+            }
+            if matrix_mode:
+                available = {str(name or "").lower().strip() for name in (reader.fieldnames or [])}
+                for missing in sorted(required_matrix_fields - available):
+                    integrity_errors.append(f"missing required matrix column: {missing}")
+            for line_number, row in enumerate(reader, start=2):
                 low = {k.lower().strip(): (v or "") for k, v in row.items() if k}
+                if matrix_mode:
+                    for field_name in sorted(required_matrix_fields):
+                        if not low.get(field_name, "").strip():
+                            integrity_errors.append(f"line {line_number}: blank {field_name}")
+                    quartile = low.get("quartile", "").strip().upper()
+                    if quartile not in {"Q1", "Q2"}:
+                        integrity_errors.append(f"line {line_number}: quartile must be Q1 or Q2, found {quartile or 'blank'}")
+                    paper_id = low.get("paper_id", "").strip()
+                    if paper_id and not (re.fullmatch(r"\d{5,10}", paper_id) or re.match(r"^10\.\d{4,9}/\S+$", paper_id, re.I)):
+                        integrity_errors.append(f"line {line_number}: paper_id is not a valid-looking PMID or DOI: {paper_id}")
                 add(low.get("key") or low.get("paper_id") or low.get("zotero_key"),
                     low.get("author") or low.get("authors"),
                     low.get("publication year") or low.get("date") or low.get("year"),
@@ -106,7 +133,7 @@ def load_library(path: Path):
 
     if not items:
         sys.exit("อ่าน library ได้ 0 รายการ — ตรวจไฟล์ export อีกครั้ง")
-    return items
+    return items, integrity_errors
 
 
 def extract_citations(text: str):
@@ -143,7 +170,7 @@ def main():
     args = ap.parse_args()
 
     text = read_draft(Path(args.draft))
-    items = load_library(Path(args.library))
+    items, integrity_errors = load_library(Path(args.library))
     cites = extract_citations(text)
 
     matched, unmatched, used_keys = [], [], set()
@@ -161,6 +188,9 @@ def main():
              f"- citation ที่พบในร่าง: {len(cites)}",
              f"- MATCHED: {len(matched)} / UNMATCHED: {len(unmatched)}",
              f"- รายการในคลังที่ยังไม่ถูกอ้าง: {len(uncited)} / {len(items)}", ""]
+    lines.append("## MATRIX INTEGRITY — live record and Q1/Q2 gate")
+    lines += [f"- ⚠️ {item}" for item in integrity_errors] or ["- PASS"]
+    lines.append("")
     lines.append("## UNMATCHED — ต้องแก้ทุกตัวก่อนส่งมอบ (อาจเป็นอ้างอิงผีหรือสะกดคลาด)")
     lines += [f"- ⚠️ {u}" for u in unmatched] or ["- (ไม่มี)"]
     lines.append("")
@@ -175,7 +205,7 @@ def main():
 
     Path(args.out).write_text("\n".join(lines), encoding="utf-8")
     print(f"เขียนรายงานที่ {args.out} | MATCHED {len(matched)} | UNMATCHED {len(unmatched)}")
-    if unmatched:
+    if unmatched or integrity_errors:
         sys.exit(1)
 
 

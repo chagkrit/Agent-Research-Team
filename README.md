@@ -53,10 +53,10 @@ Final Integration --> Submission Package
 | 02 | Data Cleaning | Dataset audit, cohort flow, missing data | DATA_DICTIONARY.md, clean dataset |
 | 03 | Statistical Analysis | SAP, model selection, table shells | STATISTICAL_ANALYSIS_PLAN.md |
 | 04 | Methodology Writing | Methods section (STROBE/TRIPOD/CONSORT) | manuscript/methods.md |
-| 05 | Literature Review | PubMed/Consensus search, gap analysis | KEY_REFERENCES.md |
+| 05 | Literature Review | Live PubMed/Semantic Scholar/Consensus search, PMID/DOI + Q1/Q2 verification, gap analysis | KEY_REFERENCES.md |
 | 06 | Introduction Writing | 5-paragraph funnel intro | manuscript/introduction.md |
 | 07 | Results Writing | Results section from tables | manuscript/results.md |
-| 08 | Figure & Graph | Plot plans, captions, R/Python code | figures/scripts/ |
+| 08 | Figure & Graph | STATA 18 plot plans, `.do`/`.log` provenance, captions | figures/scripts/ |
 | 09 | Discussion Writing | Compare literature, implications, limits | manuscript/discussion.md |
 | 10 | Journal Selection | Q1/Q2 matching, formatting, cover letter | JOURNAL_TARGET.md |
 | 11 | Peer Review Simulation | 3-reviewer mock review (clinical/stats/editorial) | SIMULATED_PEER_REVIEW_REPORT.md |
@@ -150,12 +150,13 @@ Agent 12 รวม manuscript, ตรวจ consistency ทุก N/table/figure
 - [Claude Code](https://claude.ai/code) (latest version)
 - Git
 
-### MCP Tools (เสริมสำหรับ Literature Review)
-ระบบใช้ MCP tools ต่อไปนี้ถ้ามี:
-- `mcp__pubmed__search_articles` — PubMed search
-- `mcp__claude_ai_Consensus__search` — Consensus AI search
+### Literature connectors (บังคับสำหรับ Introduction/Discussion evidence)
 
-ถ้าไม่มี MCP tools ระบบจะใช้ `WebSearch` แทน
+ระบบต้องเรียก live PubMed, Semantic Scholar/Scholar Gateway และ Consensus ครบทั้งสามฐาน พร้อม log exact tool/query/timestamp ทุกครั้ง Cite ได้เฉพาะ record ที่ PMID/DOI resolve จริงและวารสารถูกตรวจเป็น Q1/Q2 จากฐานจัดอันดับที่ระบุ source/category/year/date ห้ามใช้ WebSearch แทนหลักฐานการมีอยู่ของบทความหรือเดา quartile
+
+### Reproducible analysis (บังคับ)
+
+Data cleaning และ statistical analysis ใช้ STATA 18 เท่านั้น ทุก project ต้องมี analytic `.dta`, source `.do`, successful `.log`, `analysis/results-ledger.csv`, whole-project numeric sweep และ independent re-check หลังการแก้ตัวเลข
 
 ---
 

@@ -8,6 +8,14 @@ Simulate 3 rigorous reviewers before submission. Identify weaknesses proactively
 - `analysis/outputs/STATISTICAL_ANALYSIS_PLAN.md`
 - `analysis/outputs/REPORTING_GUIDELINE_CHECKLIST.md`
 - `journal/JOURNAL_TARGET.md` — target journal standards
+- `analysis/results-ledger.csv`, source `.dta`/`.do`/`.log`, and latest numeric sweep report
+- `references/search-log.md` and Q1/Q2 verification fields
+
+## Independent re-check mandate
+
+This agent is the independent verifier for provisional corrections. Start with a fresh live inventory using `ls -la -t`; do not rely on the correcting agent's summary. For every `corrected_pending_independent_recheck` ledger row, compare `display_value` with the source `.do`, successful `.log`, declared `.dta`, and all manuscript/table/figure/supplement occurrences. Re-run the whole-project sweep. Mark the row `verified` only if all checks pass and record reviewer/date in `PIPELINE_STATE.md`.
+
+Also independently verify every Introduction/Discussion citation against its logged PubMed/Semantic Scholar/Consensus record, PMID/DOI, and Q1/Q2 ranking evidence. A paper or quartile that cannot be independently verified must be removed or returned for correction.
 
 ## GATE 3 Prerequisite
 Do NOT begin simulation until GATE 3 (Full Draft Review) is approved by user.
@@ -122,6 +130,8 @@ Perspective: Associate Editor. Focused on novelty, scope fit, writing quality, a
 - Is the abstract accurate and complete?
 - Does the title reflect the content?
 - Are all tables and figures publication-ready?
+- Does the prose meet the selected NEJM/Lancet instructions and shared concise clinical-journal discipline?
+- Are there redundant/repetitive claims, duplicated numbers, canned transitions, vague intensifiers, or AI-style phrasing?
 
 **Completeness**
 - Abstract word count within limit?
@@ -182,3 +192,7 @@ REVISION ACTION PLAN
 - [ ] Revision action plan assigns each fix to specific agent
 - [ ] Overall recommendation stated for each reviewer
 - [ ] Estimated revision scope: minor (<5 items) / moderate (5-15) / major (>15)
+- [ ] Every provisional correction was independently re-checked against `.dta`/`.do`/`.log` and the results ledger
+- [ ] Whole-project numeric sweep passed after the latest corrections, including Word tables and all supplementary Excel worksheets
+- [ ] Citation existence and Q1/Q2 status were independently re-checked
+- [ ] Editorial re-check found no redundant, repetitive, or AI-style prose
