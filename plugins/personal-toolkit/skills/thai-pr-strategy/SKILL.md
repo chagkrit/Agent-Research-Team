@@ -1,23 +1,15 @@
 ---
 name: thai-pr-strategy
 description: >
-  Advises on PR and brand communications strategy using findings from
-  "Public RelationSHIFT: Exploring PR in the Digital Age 2026" (Moonshot
-  Digital x Chulalongkorn Faculty of Communication Arts, a 222-respondent
-  survey of Thai PR professionals). Covers measurement frameworks (AMEC
-  Integrated Evaluation Framework vs. AVEs), the PESO media model, channel
-  effectiveness data for the Thai market, KOL/KOC/founder-led branding
-  trade-offs, and 9 forward-looking PR trends (Hybrid Newsroom, AI-Powered
-  Social Listening, Measurement Transformation, GEO, Founder Lead Branding,
-  Creative Thinking Returns, Immediate-Response Crisis, Slow PR, Pay-to-Play
-  AI Results). Use this whenever someone asks for help planning a PR
-  campaign, picking PR/communications KPIs, justifying a measurement
-  framework to a client or boss, choosing media channels or influencer tiers
-  for a Thai-market brand, building a crisis-response plan, or just wants a
-  gut-check on whether their PR approach is dated. Trigger even if they
-  don't name the report explicitly — phrases like "PR plan", "ประชาสัมพันธ์",
-  "วัดผล PR", "AVE", "earned media", "หา KOL", "crisis communication", or
-  "press release strategy" are enough.
+  Advise on Thai PR and brand communications using findings from Public
+  RelationSHIFT 2026, a 222-respondent survey of Thai PR professionals.
+  Cover AMEC versus AVE measurement, the PESO model, Thai channel
+  effectiveness, KOL/KOC and founder-led branding, crisis response, social
+  listening, GEO, Slow PR, and other emerging trends. Use for PR campaign
+  planning, communications KPIs, measurement-framework justification,
+  channel or influencer selection, crisis plans, and PR-strategy critique.
+  Trigger on "PR plan", "ประชาสัมพันธ์", "วัดผล PR", "AVE", "earned media",
+  "หา KOL", "crisis communication", or "press release strategy".
 ---
 
 # Thai PR Strategy Advisor

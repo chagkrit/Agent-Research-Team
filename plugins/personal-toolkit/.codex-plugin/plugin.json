@@ -1,0 +1,27 @@
+{
+  "name": "personal-toolkit",
+  "version": "1.1.0",
+  "description": "Verified literature-review, evidence-appraisal, systematic-review, and Thai PR skills.",
+  "author": {
+    "name": "chagkrit",
+    "url": "https://github.com/chagkrit"
+  },
+  "repository": "https://github.com/chagkrit/Agent-Research-Team",
+  "license": "MIT",
+  "keywords": ["research", "literature-review", "meta-analysis", "thai-pr"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Personal Toolkit",
+    "shortDescription": "Verified research synthesis and Thai PR tools.",
+    "longDescription": "Provides literature-review building with live PubMed, Semantic Scholar, and Consensus verification, scientific critical thinking, systematic review and meta-analysis, and Thai-market PR strategy.",
+    "developerName": "chagkrit",
+    "category": "Education",
+    "capabilities": ["Research", "Analysis", "Write"],
+    "websiteURL": "https://github.com/chagkrit/Agent-Research-Team",
+    "defaultPrompt": [
+      "Build a verified Q1/Q2 literature review for my manuscript.",
+      "Critically appraise this scientific claim.",
+      "Plan a systematic review using PRISMA."
+    ]
+  }
+}

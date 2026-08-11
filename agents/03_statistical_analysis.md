@@ -9,6 +9,10 @@ Select appropriate statistical methods, write Statistical Analysis Plan (SAP), d
 - ✅ Every method below must be expressed as a STATA 18 command or command family in the SAP (e.g., `stcox`, `logistic`, `melogit`, `metan`/`meta esize`+`meta summarize`, `mvregress`, `mi impute`, `stcrreg`, `roctab`/`roccomp`).
 - If prior analysis was run in Python/R, note this explicitly in the SAP as a finding to correct and re-run in STATA 18 — not a precedent to follow (cf. [[feedback_stata18_medical_stats]]).
 - Do NOT write "analysis performed" or cite a result downstream until its `.do`/`.log` pair actually exists and has been run — code before prose (cf. [[feedback_hard_task_numeric_protocol]]).
+- Before analysis, run `ls -la -t` on `data/cleaned/`, `analysis/scripts/`, `analysis/logs/`, and `analysis/outputs/`; record the current analytic `.dta` and timestamps in `PIPELINE_STATE.md`.
+- Use `data/cleaned/analytic_cohort.dta` as the declared analysis input. If a different `.dta` is required, record why and its generating `.do`/`.log` lineage.
+- Every analysis family must have a numbered `.do` file and matching successful `.log` under `analysis/scripts/` and `analysis/logs/`.
+- Populate the single `analysis/results-ledger.csv` directly from verified STATA outputs. Each important value must include `source_dta`, `source_do`, `source_log`, and `source_locator`. Writing agents may copy only `display_value` from this ledger.
 
 ## Required Inputs
 - `data/dictionary/DATA_DICTIONARY.md`
@@ -67,6 +71,17 @@ Write `analysis/outputs/STATISTICAL_ANALYSIS_PLAN.md` with:
 6. **Significance Threshold** — alpha = 0.05 (two-tailed) unless specified
 7. **Software** — STATA 18 (mandatory; state exact command(s) used per analysis, e.g. `stcox`, `melogit`, `meta summarize`)
 8. **Multiple Testing** — Bonferroni / FDR correction if applicable
+9. **Artifact Map** — analytic `.dta`, numbered `.do` files, matching `.log` files, and the ledger `result_id` range produced by each analysis
+
+## Execution gate
+
+Planning alone does not authorize prose. Before GATE 2 can pass:
+
+1. Run every approved `.do` file in STATA 18.
+2. Confirm each matching `.log` closes without unresolved error.
+3. Save all important values to `analysis/results-ledger.csv` with stable `result_id` values and status `generated`.
+4. Run `analysis/scripts/numeric_sweep.py` once to establish the baseline report.
+5. Do not mark a corrected value `verified`; set `corrected_pending_independent_recheck` until Agent 11 or a later fresh-context pass re-checks it.
 
 ## Model Assumption Checklist
 
@@ -111,6 +126,9 @@ Write `analysis/outputs/TABLE_SHELLS.md` with empty table structures:
 - `analysis/outputs/TABLE_SHELLS.md`
 - `analysis/outputs/MODEL_ASSUMPTION_CHECKLIST.md`
 - `manuscript/methods_statistical_section.md` (statistical analysis subsection draft)
+- `analysis/scripts/02_primary_analysis.do` and additional numbered `.do` files as required
+- Matching successful `analysis/logs/*.log`
+- `analysis/results-ledger.csv` populated with every important manuscript value
 
 ## Completion Checklist
 - [ ] Statistical method matches study design and outcome type
@@ -119,4 +137,7 @@ Write `analysis/outputs/TABLE_SHELLS.md` with empty table structures:
 - [ ] Sensitivity analyses address main threats to validity
 - [ ] STATA 18 confirmed as the sole analysis software — no Python/R/SPSS anywhere in the SAP
 - [ ] Each cited analysis has a corresponding `.do`/`.log` file that has actually been run
+- [ ] Current analytic `.dta` exists and is identified in every analysis log
+- [ ] Results ledger rows map each important number to the source `.dta`/`.do`/`.log` and locator
+- [ ] Baseline whole-project numeric sweep completed
 - [ ] EPV or sample size adequacy noted

@@ -11,6 +11,10 @@ Write Discussion section by contextualising results within existing literature. 
 - `analysis/outputs/STATISTICAL_ANALYSIS_PLAN.md` — to identify sensitivity analyses
 - GATE 1 approval — original study objective
 - `journal/JOURNAL_TARGET.md` — word limit for Discussion
+- `analysis/results-ledger.csv` plus source `.do`/`.log` for every number repeated in Discussion
+- `references/search-log.md` plus PMID/DOI and Q1/Q2 verification for every literature comparator
+
+Before drafting, run `ls -la -t` on analysis, references, manuscript, and journal directories and record the current files in `PIPELINE_STATE.md`. Copy study numbers only from the ledger. Use literature only when it was retrieved live through PubMed, Semantic Scholar, and Consensus, resolves to a real PMID/DOI record, and has verified Q1/Q2 journal status.
 
 ---
 
@@ -242,13 +246,16 @@ Do NOT soften with "however, our study has several strengths." Limitations stand
 
 ---
 
-## Writing Rules (R4 Standard) — shared across all variants
+## Writing rules — mandatory NEJM/Lancet discipline plus R4 structure
 - Past tense for your own results; present tense for established facts and prior literature
 - Hedging language calibrated to design: observational designs (A/B) mandate "suggest", "may inform", "associated with", "pending external validation" — never "proves", "causes", "can be used to guide"; RCTs (C) may state a causal effect directly since randomisation supports causal inference for the ITT estimate; SR/MA (D) hedges by GRADE certainty level, not by design alone
 - Every comparison to prior literature must cite a specific paper with its effect size
 - No new results introduced in Discussion
 - Limitations must be proportionate — state "major" when major (e.g., large CCA exclusion, high heterogeneity, high risk of bias in most included studies)
 - Variant A: use "internally validated" not "validated" — reserve "validated" for external validation
+- Use concise, evidence-led clinical-journal prose with concrete subjects and calibrated interpretation.
+- Remove redundant/repetitive summaries of Results, duplicated effect estimates, stock transitions, vague intensifiers, generic AI-style balancing phrases, and meta-commentary.
+- Do not copy wording from published NEJM/Lancet articles; follow target-specific editorial conventions only.
 
 ---
 
@@ -266,6 +273,9 @@ Do NOT soften with "however, our study has several strengths." Limitations stand
 - [ ] Conclusion matches GATE 1 objective
 - [ ] Word count within journal limit
 - [ ] No new results introduced
+- [ ] Every study number was copied from the results ledger and matches source `.do`/`.log`
+- [ ] Every literature comparison has live connector evidence, a real PMID/DOI, and verified Q1/Q2 status
+- [ ] NEJM/Lancet editorial pass found no redundant, repetitive, or AI-style prose
 
 ## Completion Checklist — Variant A only
 - [ ] Missing data addressed as "major limitation" if CCA exclusion >30%

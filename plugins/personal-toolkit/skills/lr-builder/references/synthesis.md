@@ -15,18 +15,20 @@
 
 ### 2.2 ออกแบบและรัน query ต่อฐานข้อมูล
 
-แต่ละฐานเหมาะกับรูปแบบ query ต่างกัน — อย่าใช้ query เดียวกันยิงทั้งสามฐาน:
+Discover the live tool names by capability and record them. แต่ละฐานเหมาะกับรูปแบบ query ต่างกัน — อย่าใช้ query เดียวกันยิงทั้งสามฐาน:
 
 - **PubMed** (`mcp__claude_ai_PubMed__*`) — ใช้ boolean + MeSH term เป็นหลัก เริ่มด้วย `search_articles` แล้วใช้ `get_article_metadata`/`get_full_text_article` ต่องานที่คัดเข้า ใช้ `find_related_articles` เพื่อขยายจากงานหลักที่เจอแล้ว ใช้ `lookup_article_by_citation` เมื่อผู้ใช้หรือโมเดลนึกถึงงานเฉพาะเจาะจงและต้องยืนยันว่ามีจริง ก่อนดึง full text ให้เช็ค `get_copyright_status` เสมอ
 - **Consensus** (`mcp__claude_ai_Consensus__search`) — ใช้คำถามภาษาธรรมชาติสั้น ๆ ตรงประเด็น เหมาะกับการหาฉันทามติ/แนวโน้มของสนาม ไม่ใช่ exact boolean **ข้อจำกัดสำคัญ**: ยิงได้ไม่เกิน 3 คำค้นต่อรอบ (batch) ถ้าเจอ rate limit ให้รอ 30 วินาทีก่อนลองใหม่ อย่าใส่ filter (year_min, study_types ฯลฯ) เว้นแต่ผู้ใช้ขอชัดเจน ผลลัพธ์ที่ได้มาพร้อม inline citation numbered ที่ต้องอ้างอิงตรงตามนั้น
-- **Scholar Gateway** (`mcp__claude_ai_Scholar_Gateway__semanticSearch`) — semantic search เหมาะกับคำถามเชิงแนวคิด/ทฤษฎี หรือหางานที่ PubMed ไม่ครอบคลุม (non-biomedical, preprint, cross-disciplinary)
+- **Semantic Scholar / Scholar Gateway** — semantic search เหมาะกับคำถามเชิงแนวคิด/ทฤษฎีและการ cross-check DOI/title/related work; preprint ที่ยังไม่มี Q1/Q2 journal publication ต้องคัดออก
 
 กติกาการค้น:
 
-- ทุก query ที่ยิงจริง (ไม่ว่าจะได้ผลลัพธ์ที่ใช้ได้หรือไม่) ต้อง log ลง `search-log.md` ทันที: ฐานข้อมูล, query ตรงตัวที่ใช้, วันที่, จำนวนผลลัพธ์, จำนวนที่ผ่านการคัดกรอง title/abstract
+- ทุก query ที่ยิงจริง (ไม่ว่าจะได้ผลลัพธ์ที่ใช้ได้หรือไม่) ต้อง log ลง `search-log.md` ทันที: connector/tool name, query ตรงตัว, filter, timestamp, จำนวนผลลัพธ์, identifiers ที่ดึงกลับ, และจำนวนที่ผ่าน title/abstract
 - ค้นแบบวนซ้ำ ไม่ใช่ครั้งเดียวจบ — เริ่มกว้างแล้วแคบตาม constructs ที่โผล่มาระหว่างสกัด (เฟส 2 และ 3 มักย้อนกลับไปกลับมา)
 - **ห้ามเติมงานลง matrix จากความจำของโมเดลโดยไม่ผ่านการค้นจริง** — ถ้านึกถึงงานสำคัญที่ "น่าจะมี" ให้ค้นยืนยันก่อนด้วย `lookup_article_by_citation` หรือ `search_articles` เสมอ (ดูกฎเหล็กข้อ 1 ใน SKILL.md) โมเดลมีแนวโน้มจำผู้แต่ง/ปี/ผลลัพธ์ผิด หรือแม้แต่ "จำ" งานที่ไม่มีอยู่จริง
 - dedupe ข้ามฐาน — งานเดียวกันอาจโผล่ทั้งใน PubMed และ Scholar Gateway เทียบด้วย DOI/PMID/ชื่อเรื่องก่อนนับเป็นรายการใหม่ ถ้าซ้ำให้รวมเป็นแถวเดียวและบันทึกทุกฐานที่เจอไว้ใน `source_db`
+- หลัง dedupe ให้ยืนยันว่ารายการมีอยู่จริงโดย resolve PMID/DOI และเทียบ title/journal/year กับอีกฐานหนึ่งเมื่อทำได้ ถ้า metadata conflict แก้ไม่ได้ให้คัดออก
+- ตรวจ quartile ก่อนเพิ่มเข้า matrix: บันทึก exact journal/ISSN, category, Q1/Q2, ranking database, ranking year และ verified_at ลง `journal-quartile-log.csv`; Q3/Q4/unranked/ตรวจไม่ได้ต้องคัดออก
 
 ### 2.3 schema ของ synthesis-matrix.csv
 
@@ -36,11 +38,20 @@
 |---|---|
 | `paper_id` | PMID (จาก PubMed) หรือ DOI (จาก Consensus/Scholar Gateway) — **ห้ามว่าง** แถวที่ไม่มี id คือแถวผิดกฎ นี่คือหลักฐานว่างานนี้ถูกค้นเจอจริง ไม่ใช่จำมา |
 | `source_db` | ฐานที่ค้นเจอ: `pubmed` / `consensus` / `scholar` หรือหลายฐานคั่นด้วย `;` ถ้า dedupe แล้วเจอซ้ำ |
+| `connector_tool` | exact callable tool name(s) ที่คืน record นี้ — หลายตัวคั่นด้วย `;` |
 | `search_query` | query ตรงตัวที่ใช้ค้นเจองานนี้ — ต้องตรงกับบรรทัดใน search-log.md |
 | `retrieved_date` | วันที่ค้นเจอ (ผลค้นสดเปลี่ยนได้ตามเวลา ต้องรู้ว่า snapshot ไหน) |
+| `record_url` | URL ของ PubMed/DOI/Semantic Scholar record ที่เปิดตรวจได้จริง |
 | `citation` | author-year หรือเลขอ้างอิง ตามระบบอ้างอิงใน config (เช่น สมชาย ใจดี (2560) หรือ Smith (2019) หรือ [12] ถ้าเป็น Vancouver) |
 | `authors` | รายชื่อผู้แต่ง — ใช้โดย `scripts/citation_audit.py` ตอนจับคู่กับร่าง |
 | `title` | ชื่อเรื่องเต็ม |
+| `journal` | exact journal title หลัง cross-check metadata |
+| `journal_issn` | ISSN/eISSN ที่ใช้ match ฐาน quartile |
+| `quartile` | ต้องเป็น `Q1` หรือ `Q2` เท่านั้น |
+| `quartile_source` | `JCR` หรือ `SCImago/SJR` (หรือฐานที่ผู้ใช้อนุมัติ) |
+| `quartile_category` | subject category ที่ให้ quartile |
+| `quartile_year` | ranking year ที่ตรวจ |
+| `quartile_verified_at` | วันที่/เวลาที่ตรวจ quartile |
 | `year` | ปีตามระบบใน config |
 | `country_context` | ประเทศ/บริบทของการศึกษา |
 | `theory_framework` | ทฤษฎี/กรอบที่ใช้ |
@@ -54,6 +65,7 @@
 ### 2.4 กติกาการสกัด
 
 - สกัดจาก full text เมื่อดึงได้ (ผ่าน `get_full_text_article` หลังเช็ค copyright แล้ว) ถ้ามีแค่ metadata/abstract (กรณีทั่วไปของ Consensus/Scholar Gateway) ให้ติด `abstract_only` — **ห้ามเติมรายละเอียดที่ไม่ได้อ่านจริง** ช่องไหนไม่รู้ให้ใส่ `n/a` ไม่ใช่เดา
+- ห้ามสกัดหรือ cite แถวที่ `paper_id`, `record_url`, หรือ field quartile ใด ๆ ว่าง และห้ามใช้ค่า quartile ที่โมเดลจำมาเอง
 - ใน Cowork: แตกงานเป็นชุด (เช่น ครั้งละ 10–15 รายการ) และใช้ subagents ขนานได้ แต่รวมผลกลับเข้า matrix ไฟล์เดียวเสมอ — เคารพ rate limit ของ Consensus (ไม่เกิน 3 batch ต่อรอบ) แม้ตอนกระจายงานให้ subagents หลายตัว
 - เซฟ matrix ทุกชุดที่เสร็จ ไม่รอจบทั้งหมด
 - จบเฟสด้วยรายงานสั้นต่อผู้ใช้: จำนวนที่สกัด, สัดส่วน fulltext/abstract, สัดส่วนต่อฐาน, ช่องโหว่ที่เห็น (เช่น "constructs X มีงานรองรับแค่ 2 ชิ้น — ควรค้นเพิ่ม") → เสนอ query เพิ่มเติมที่ควรลอง แล้วรอผู้ใช้ยืนยันก่อนยิงค้นรอบใหม่ถ้าเป็นเรื่องใหญ่
@@ -67,7 +79,7 @@
 - pivot จากคอลัมน์ `constructs` — ประเด็นหนึ่งคือกลุ่มงานที่แตะ construct เดียวกัน
 - ประเด็นต้องเรียงเป็น "ข้อโต้แย้ง" ที่ไหลจากกว้างไปแคบและจบที่คำถามวิจัย/objective ของผู้ใช้ ไม่ใช่เรียงตามตัวอักษรหรือตามปี
 - เป้าหมายจำนวนประเด็นขึ้นกับโหมด (เช็ค project-config.md):
-  - **โหมด A (Introduction section)**: 2–4 ประเด็นหลักเท่านั้น — Introduction ของ medical journal ส่วนใหญ่มี word limit แคบ (มักไม่เกิน 400–600 คำ) ประเด็นที่เกินนี้ต้องถูกบีบรวมหรือตัดออก ไม่ใช่ยัดทุกอย่างลงไป
+  - **โหมด A (Introduction + Discussion evidence)**: 2–4 ประเด็นหลักสำหรับ Introduction และทำ comparator map แยกสำหรับ Discussion; อย่ายัดทุกประเด็นลง Introduction
   - **โหมด B (standalone review manuscript)**: 4–8 ประเด็นหลัก — มากกว่านั้นแปลว่ายังจัดกลุ่มไม่เสร็จ
 
 ### 3.2 โครงของแต่ละประเด็นใน theme-map.md

@@ -6,13 +6,13 @@
   },
   "metadata": {
     "description": "Research Manuscript Agent System — 12-agent pipeline for publication-quality academic manuscripts",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "plugins": [
     {
       "name": "research-manuscript",
-      "description": "End-to-end manuscript pipeline (12-agent, R4 Style Standard): data cleaning → statistics → writing → peer review simulation → submission. Distinct from the separately installed medical-research-pipeline plugin — see skill's disambiguation section.",
-      "version": "1.0.0",
+      "description": "Auditable 12-agent manuscript pipeline: STATA-only data and statistics → source-linked results ledger → NEJM/Lancet-disciplined writing → independent re-check → submission.",
+      "version": "1.1.0",
       "source": "./",
       "strict": false,
       "skills": [
@@ -21,8 +21,8 @@
     },
     {
       "name": "personal-toolkit",
-      "description": "Personal skills and agents: literature review builder, scientific critical thinking, systematic review/meta-analysis methodology, Thai PR strategy, plus medical-research, portfolio-analysis, and social-media-strategy agents",
-      "version": "1.0.0",
+      "description": "Personal skills and agents including a Q1/Q2-only literature review builder using live PubMed, Semantic Scholar, and Consensus verification",
+      "version": "1.1.0",
       "source": "./plugins/personal-toolkit",
       "strict": false
     }

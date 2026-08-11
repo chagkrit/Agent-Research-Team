@@ -14,6 +14,14 @@ Compile all sections into a complete, consistent manuscript. Run final consisten
 - `journal/JOURNAL_TARGET.md`
 - `peer_review/REVISION_ACTION_PLAN.md` (if peer review simulation done)
 - `analysis/outputs/REPORTING_GUIDELINE_CHECKLIST.md`
+- `analysis/results-ledger.csv`
+- `data/cleaned/*.dta`, `analysis/scripts/*.do`, and matching `analysis/logs/*.log`
+- `analysis/outputs/NUMERIC_SWEEP_REPORT.md`
+- `references/search-log.md` and journal-quartile verification fields
+
+## Finalization precondition
+
+Run `ls -la -t` across the entire project and record the current paths/timestamps. Block final integration if any ledger row is `corrected_pending_independent_recheck`, any STATA log has an unresolved error, any number lacks `.dta`/`.do`/`.log` provenance, or any citation lacks a real connector-retrieved PMID/DOI and verified Q1/Q2 status.
 
 ## Step 1 - Compile Full Draft
 
@@ -39,7 +47,7 @@ Output: `manuscript/full_draft.md`
 ## Step 2 - Consistency Audit
 
 ### Number Consistency Check
-Extract all N values and verify identical across:
+Use `analysis/results-ledger.csv` as the source, then run `analysis/scripts/numeric_sweep.py` across every paragraph, Word table, CSV/JSON/TEX table, figure caption, and every supplementary Excel worksheet. Do not limit the check to the discrepancy location. Extract all N values and verify identical across:
 - [ ] Abstract: N = ___
 - [ ] Methods (cohort size): N = ___
 - [ ] Results (Table 1): N = ___
@@ -75,7 +83,8 @@ For each table mentioned in text:
 ### Reference Integrity Check
 - [ ] All in-text citations have corresponding reference list entry
 - [ ] No reference list entry is uncited in text
-- [ ] All PMIDs verified (spot check 5 random references)
+- [ ] All PMIDs/DOIs verified against real database records (no spot-check-only shortcut)
+- [ ] Every cited journal has verified Q1/Q2 ranking source, category, year, and verification date
 - [ ] Reference format matches target journal
 
 ## Step 3 - Reporting Guideline Final Check
@@ -97,6 +106,8 @@ Count each section:
 | Total | | | |
 
 If over limit: identify lowest-priority paragraphs to trim.
+
+Run a separate NEJM/Lancet editorial pass that removes redundant or repetitive claims, duplicated results, stock transitions, vague intensifiers, and AI-style prose. A later independent pass must confirm this edit before submission.
 
 ## Step 5 - Submission Package Assembly
 
@@ -177,3 +188,8 @@ Administrative
 - [ ] Submission package organized per journal requirements
 - [ ] Final checklist signed off
 - [ ] PIPELINE_STATE.md updated: all steps DONE
+- [ ] No ledger row remains `corrected_pending_independent_recheck`
+- [ ] Latest whole-project numeric sweep passed after the final numeric edit
+- [ ] Every important number maps to source `.dta`/`.do`/`.log`
+- [ ] Every citation has live connector evidence, a real PMID/DOI, and verified Q1/Q2 status
+- [ ] Independent NEJM/Lancet editorial re-check passed

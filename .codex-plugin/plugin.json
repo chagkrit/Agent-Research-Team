@@ -1,0 +1,27 @@
+{
+  "name": "research-manuscript",
+  "version": "1.1.0",
+  "description": "Auditable 12-agent manuscript pipeline with STATA-only analysis, source-linked results ledger, verified Q1/Q2 literature, and independent re-check gates.",
+  "author": {
+    "name": "chagkrit",
+    "url": "https://github.com/chagkrit"
+  },
+  "repository": "https://github.com/chagkrit/Agent-Research-Team",
+  "license": "MIT",
+  "keywords": ["medical-research", "manuscript", "stata", "publication", "audit"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Research Manuscript",
+    "shortDescription": "Run an auditable 12-agent manuscript pipeline.",
+    "longDescription": "Orchestrates STATA-only data preparation and analysis, provenance-linked manuscript writing, verified Q1/Q2 literature synthesis, peer-review simulation, and final submission packaging through human and independent re-check gates.",
+    "developerName": "chagkrit",
+    "category": "Education",
+    "capabilities": ["Research", "Analysis", "Write"],
+    "websiteURL": "https://github.com/chagkrit/Agent-Research-Team",
+    "defaultPrompt": [
+      "Start the auditable Agent Research Team GATE 1 pipeline.",
+      "Continue my STATA-only 12-agent manuscript pipeline.",
+      "Run provenance and independent re-check gates on my manuscript."
+    ]
+  }
+}

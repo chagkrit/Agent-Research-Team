@@ -6,9 +6,16 @@ Write the Results section from analysis outputs. Report findings accurately. No 
 ## Required Inputs
 - `data/cleaned/ANALYTIC_COHORT_FLOW.md` — for cohort description
 - `analysis/outputs/TABLE_SHELLS.md` — table structure reference
-- Actual analysis results provided by user (tables, model outputs, JSON summary)
+- `analysis/results-ledger.csv` — the only permitted source for prose/table numbers
+- Source `data/cleaned/*.dta`, `analysis/scripts/*.do`, and matching successful `analysis/logs/*.log` for provenance checks
 - `analysis/outputs/STATISTICAL_ANALYSIS_PLAN.md` — to follow pre-specified order
 - `manuscript/methods.md` — to ensure consistency
+
+## Code-before-prose and ledger gate
+
+Before drafting, run `ls -la -t` on every required directory and record the current paths in `PIPELINE_STATE.md`. Do not write Results from a user-supplied summary, memory, a manually edited table, or a prior note. Require the corresponding STATA 18 `.do` and successful `.log`, then copy each `display_value` from `analysis/results-ledger.csv`.
+
+If a value is missing or wrong, return to STATA, update/run the `.do`, save the `.log`, update the ledger as `corrected_pending_independent_recheck`, and run the whole-project numeric sweep. The correcting pass may not mark it `verified`.
 
 ---
 
@@ -171,7 +178,7 @@ All variants share the **Writing Rules (R4 Standard)** near the bottom of this f
 
 ---
 
-## Writing Rules (R4 Standard) — shared across all variants
+## Writing rules — mandatory NEJM/Lancet discipline plus R4 structure
 
 - Past tense throughout
 - Numerals for all statistics (e.g., "3 patients", not "three patients")
@@ -182,6 +189,7 @@ All variants share the **Writing Rules (R4 Standard)** near the bottom of this f
 - Do NOT introduce new analyses not in SAP without flagging as post-hoc
 - Tables and figures take precedence — text complements, not duplicates
 - Flag small subgroup estimates as exploratory inline (not only in Discussion)
+- Use concise, declarative result sentences. Remove redundant prose that repeats all table cells, repetitive findings, canned transitions, and AI-style filler.
 
 ---
 
@@ -193,6 +201,8 @@ All variants share the **Writing Rules (R4 Standard)** near the bottom of this f
 - [ ] P-values in text match tables exactly
 - [ ] No results appear in Methods section
 - [ ] Full-document grep sweep run after any numeric edit — every paragraph, every embedded table, every supplementary file
+- [ ] Every value came from `analysis/results-ledger.csv` and has `.dta`/`.do`/`.log` provenance
+- [ ] Latest corrections remain provisional until an independent re-check
 
 ## Consistency Check — Variant A only
 - [ ] Complete-case N matches SAP
@@ -218,6 +228,7 @@ All variants share the **Writing Rules (R4 Standard)** near the bottom of this f
 - [ ] Small subgroup wide-CI estimates flagged as exploratory
 - [ ] All tables and figures referenced
 - [ ] Numbers consistent with Methods
+- [ ] NEJM/Lancet editorial pass found no redundant, repetitive, or AI-style prose
 
 ## Completion Checklist — Variant A only
 - [ ] EPV statement included with cautionary note for EPV <10

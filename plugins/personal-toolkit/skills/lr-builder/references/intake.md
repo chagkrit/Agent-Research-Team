@@ -2,11 +2,13 @@
 
 เป้าหมายของเฟสนี้: รู้จักผู้ใช้และโจทย์ของเขาดีพอที่จะทำงานแทนทีม postdoc ได้ และจบด้วย `project-config.md` ที่ผู้ใช้ยืนยันแล้ว
 
-## 0. เลือกโหมดงานก่อนอย่างอื่นทั้งหมด
+## 0. ตรวจ live files และเลือกโหมดงาน
+
+รัน `ls -la -t` ที่ project root และโฟลเดอร์ references/drafts/manuscript ก่อนอ่าน note หรือ config บันทึก path/timestamp ของไฟล์ปัจจุบันใน config ห้ามเชื่อ memory, note, หรือชื่อไฟล์ `final` อย่างเดียว
 
 ถามผู้ใช้ตรง ๆ ว่างานนี้คือ:
 
-- **โหมด A — Introduction section ของ original article (IMRAD)**: จะมี Methods/Results/Discussion ตามมา (อาจเขียนเองหรือให้ `medical-research-pipeline:manuscript-writer` ทำต่อ) เนื้อหาต้องสั้น กระชับ ตาม word limit ของ target journal ปิดท้ายด้วย study objective/hypothesis ไม่ใช่ conceptual framework แบบยาว
+- **โหมด A — Introduction + Discussion evidence ของ original article (IMRAD)**: ร่าง Introduction และเตรียม evidence matrix/comparator notes สำหรับ Discussion ที่จะเขียนหลังผลวิเคราะห์ เนื้อหาต้องสั้น กระชับ ตาม word limit ของ target journal
 - **โหมด B — Standalone review manuscript**: manuscript ทั้งฉบับที่ตัวมันเองคือทบทวนวรรณกรรม (narrative/scoping review) มี Discussion/Conclusion ของตัวเอง
 
 ถ้าผู้ใช้บอกว่าต้องการทำ **systematic review/meta-analysis อย่างเป็นทางการ** (มี PRISMA flow, risk of bias assessment, pooled effect size) นั่นไม่ใช่โหมด B — แจ้งว่าอยู่นอกขอบเขตของ skill นี้ และชี้ไปที่ skill `systematic-review-meta-analysis` แทน
@@ -17,7 +19,8 @@
 
 | รายการ | ทำไมขาดไม่ได้ | ถ้าไม่มี |
 |---|---|---|
-| อย่างน้อยหนึ่งฐานค้นวรรณกรรม (PubMed / Consensus / Scholar Gateway) เชื่อมต่อและใช้งานได้ในเซสชันนี้ | เป็นแหล่งอ้างอิงเดียวของทั้งระบบ — ไม่มีคลังส่วนตัวมาก่อนแล้ว | **หยุด** ถ้าไม่มีฐานไหนใช้ได้เลย — ไม่มีทางสร้าง matrix ที่น่าเชื่อถือได้ ถ้ามีอย่างน้อยหนึ่งฐานให้เดินหน้าได้แต่บันทึกไว้ว่าขาดฐานไหน (coverage แคบกว่าที่ตั้งใจ) |
+| PubMed, Semantic Scholar/Scholar Gateway, และ Consensus เชื่อมต่อและเรียก live query ได้ครบทั้งสามฐาน | เป็นแหล่งค้น/ตรวจข้ามกันและเป็นหลักฐานว่ารายการมีอยู่จริง | **หยุด** ถ้าขาดฐานใดฐานหนึ่ง — ขอให้ผู้ใช้เชื่อม/เปิด connector ก่อน ห้ามลด coverage เงียบ ๆ |
+| ช่องทางตรวจ quartile จากฐานจริง (JCR preferred; SCImago/SJR fallback) | cite ได้เฉพาะวารสาร Q1/Q2 และต้องบันทึก source/category/year | **หยุด** ถ้าตรวจไม่ได้ — ห้ามเดา quartile จาก impact factor หรือชื่อเสียง |
 | คำถามวิจัย / study objective (จาก protocol, proposal หรือ draft ที่มีอยู่แล้ว) | ทั้งส่วนคือข้อโต้แย้งที่ต้องจบลงตรงคำถามวิจัย/objective ไม่มีเป้า = สังเคราะห์ไม่ได้ | **หยุด** — ขอเอกสารหรือให้ผู้ใช้พิมพ์คำถามวิจัย/objective มาตรง ๆ |
 | กฎ format: author guidelines ของ target journal หรือตัวอย่าง manuscript ที่ตีพิมพ์แล้วในวารสารเดียวกัน | โครงส่วน, word limit, จำนวน reference สูงสุด, และรูปแบบอ้างอิง (ส่วนใหญ่ medical journal ใช้ Vancouver แบบตัวเลข) ต่างกันมากระหว่างวารสาร | **ไม่หยุด แต่เตือน** — ใช้โครง default (ดู references/drafting.md) ได้ โดยบันทึกใน config ว่าใช้ default และผู้ใช้รับความเสี่ยงเอง — แนะนำให้เลือก target journal ให้ได้ก่อนเฟส 5 เพราะ word/reference limit กระทบการร่างโดยตรง |
 
@@ -49,9 +52,10 @@
 ตรวจและรายงานต่อผู้ใช้ก่อนเริ่มเฟส 2:
 
 - ฐานไหนใช้ได้จริงในเซสชันนี้ (PubMed / Consensus / Scholar Gateway) — โหลด tool schema ผ่าน ToolSearch แล้วลองเรียกแบบเบา ๆ เพื่อยืนยันว่าเชื่อมต่อจริง ไม่ใช่แค่ปรากฏชื่อในรายการ
-- ถ้าขาดฐานใดฐานหนึ่ง แจ้งผลกระทบต่อ coverage ตรง ๆ (เช่น ขาด PubMed → พลาดงาน medical mainstream จำนวนมาก, ขาด Scholar Gateway → พลาดงานสาย non-biomedical หรืองาน preprint)
+- ถ้าขาดฐานใดฐานหนึ่ง ให้หยุดและแจ้งว่าต้องเชื่อม connector ใด ห้ามเริ่มคัด citation ด้วยฐานที่เหลือ
 - แจ้งข้อจำกัดเฉพาะฐานที่ต้องระวังตั้งแต่ต้น: Consensus จำกัด batch การค้นพร้อมกันไม่เกิน 3 ครั้งต่อรอบและมี rate limit, PubMed ให้ full text ได้เฉพาะบางบทความ (ต้องเช็ค copyright status ก่อนดึงเต็ม), Scholar Gateway ใช้ semantic search เป็นหลักจึงเหมาะกับคำถามเชิงแนวคิดมากกว่า exact boolean
 - ถ้าผู้ใช้ระบุช่วงปีหรือภาษาที่ต้องการมาแล้ว (จากข้อ 5 ของบทสัมภาษณ์) บันทึกไว้ใน config เพื่อใช้ตั้งค่า filter ตอนค้นจริงในเฟส 2
+- ทดลองตรวจ quartile ของวารสารตัวอย่างอย่างน้อยหนึ่งรายการ บันทึก ranking database, exact journal identity/ISSN, category, quartile, ranking year และ verified_at เพื่อยืนยันว่า workflow ใช้งานได้จริง
 
 ## 5. สร้าง project-config.md
 
@@ -62,7 +66,7 @@
 อัปเดตล่าสุด: [วันที่]
 
 ## โหมดงาน
-- โหมด: [A — Introduction section ของ IMRAD | B — Standalone review manuscript]
+- โหมด: [A — Introduction + Discussion evidence ของ IMRAD | B — Standalone review manuscript]
 - ส่งต่อให้ manuscript-writer ทำต่อไหม (เฉพาะโหมด A): [ใช่/ไม่ใช่]
 
 ## ผู้ใช้และโจทย์
@@ -80,7 +84,8 @@
 - จุดที่ [รอยืนยัน]:
 
 ## แหล่งค้นวรรณกรรม
-- ฐานที่ใช้ได้: (PubMed / Consensus / Scholar Gateway — ระบุว่าฐานไหนขาด และผลต่อ coverage)
+- Connector live check: PubMed [tool/time/result] / Semantic Scholar [tool/time/result] / Consensus [tool/time/result]
+- Quartile source: [JCR/SCImago/SJR, access date, ranking year/category policy]
 - ขอบเขตการค้น: ช่วงปี / ภาษา / ประเภทงานที่เน้น
 - คำค้น/MeSH term เริ่มต้น (ถ้ามี):
 

@@ -9,6 +9,9 @@ Write a journal-grade Introduction section using evidence from the Literature Re
 - `references/INTRODUCTION_EVIDENCE_NOTES.md`
 - `journal/JOURNAL_TARGET.md` — word limit for Introduction
 - GATE 1 study objective
+- `references/search-log.md` and Q1/Q2 verification fields for every cited record
+
+Before drafting, run `ls -la -t` on `references/`, `journal/`, and `manuscript/` and record the selected current inputs in `PIPELINE_STATE.md`. Use only references retrieved live through PubMed, Semantic Scholar, and Consensus, with real PMID/DOI records and verified Q1/Q2 status. If any condition is missing, exclude the citation.
 
 ---
 
@@ -122,7 +125,7 @@ All variants share the **Writing Style Rules (R4 Standard)** below — only the 
 
 ---
 
-## Writing Style Rules (R4 Standard) — shared across all variants
+## Writing style rules — mandatory NEJM/Lancet discipline plus R4 structure
 - Present tense for established facts: "Breast cancer is the most common cancer..."
 - Past tense for specific study findings: "Bhoo-Pathy et al. demonstrated..."
 - Each sentence must serve a purpose — no filler transitions
@@ -131,6 +134,9 @@ All variants share the **Writing Style Rules (R4 Standard)** below — only the 
 - Do NOT describe your methods, results, or data in the Introduction
 - Citations: Vancouver numbered format — place immediately after supported claim
 - No abbreviations introduced without definition at first use
+- Use concise, evidence-led clinical-journal prose. Prefer concrete subjects and verbs and one principal claim per sentence.
+- Remove redundant/repetitive claims, duplicated statistics, stock transitions, vague intensifiers, generic AI-style synthesis, and meta-commentary.
+- Follow the selected target's current author instructions without copying sentences from published NEJM/Lancet articles.
 
 ## Word Count Target
 - Variants A/B/C (4-paragraph funnel): 400–550 words
@@ -152,6 +158,8 @@ All variants share the **Writing Style Rules (R4 Standard)** below — only the 
 - [ ] All citations match `references/KEY_REFERENCES.md`
 - [ ] No unverified claims
 - [ ] No fabricated references
+- [ ] Every citation has logged PubMed/Semantic Scholar/Consensus retrieval, a real PMID/DOI, and verified Q1/Q2 status
+- [ ] Independent editorial pass found no redundant, repetitive, or AI-style prose
 
 ## Completion Checklist — Variant A only
 - [ ] Names specific existing prediction tools with their limitations in the target population

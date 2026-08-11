@@ -10,7 +10,9 @@ Format: `[DONE]` / `[IN PROGRESS]` / `[PENDING]` / `[SKIPPED]`
 - **Project Title**: [fill in]
 - **Study Design**: [fill in]
 - **Target Journal**: [fill in]
+- **Target Prose Standard**: [NEJM / Lancet / shared concise clinical-journal default]
 - **Last Updated**: [fill in]
+- **Live File Inventory (`ls -la -t`) Checked**: [date/time, directories, selected current paths]
 
 ---
 
@@ -29,8 +31,8 @@ Format: `[DONE]` / `[IN PROGRESS]` / `[PENDING]` / `[SKIPPED]`
 | Step | Agent | Status | Output Files | Notes |
 |---|---|---|---|---|
 | 1 | Research Director - Initial Assessment | PENDING | | |
-| 2 | Data Cleaning & Preparation | PENDING | DATA_DICTIONARY.md, DATA_CLEANING_REPORT.md, ANALYTIC_COHORT_FLOW.md | |
-| 3 | Statistical Analysis Planning | PENDING | STATISTICAL_ANALYSIS_PLAN.md, TABLE_SHELLS.md | |
+| 2 | Data Cleaning & Preparation | PENDING | analytic_cohort.dta, 01_data_cleaning.do/.log, DATA_DICTIONARY.md, DATA_CLEANING_REPORT.md, ANALYTIC_COHORT_FLOW.md | |
+| 3 | Statistical Analysis Planning & Execution | PENDING | numbered .do/.log files, results-ledger.csv, STATISTICAL_ANALYSIS_PLAN.md, TABLE_SHELLS.md | |
 | 4 | Methodology Writing | PENDING | manuscript/methods.md, REPORTING_GUIDELINE_CHECKLIST.md | |
 | 5 | Literature Review | PENDING | KEY_REFERENCES.md, KNOWLEDGE_GAP.md | |
 | 6 | Introduction Writing | PENDING | manuscript/introduction.md | |
@@ -45,6 +47,19 @@ Format: `[DONE]` / `[IN PROGRESS]` / `[PENDING]` / `[SKIPPED]`
 
 ## QC Log
 
-| Date | Step | Issue Found | Resolution | Status |
-|---|---|---|---|---|
-| | | | | |
+Use only `generated`, `corrected_pending_independent_recheck`, or `verified` for numeric/statistical corrections. The same pass that edits an item cannot verify it.
+
+| Date | Step | Issue Found | Resolution | Source do/log/ledger ID | Independent Reviewer/Date | Status |
+|---|---|---|---|---|---|---|
+| | | | | | | |
+
+## Final hard gates
+
+- [ ] Current paths and timestamps were checked with `ls -la -t` this session.
+- [ ] STATA 18 was the sole data-cleaning/statistical engine.
+- [ ] Current analytic `.dta`, executable `.do`, and successful `.log` files exist.
+- [ ] Every important manuscript number is mapped in `analysis/results-ledger.csv`.
+- [ ] Whole-project sweep passed after the latest numeric change, including Word tables and every supplementary Excel worksheet.
+- [ ] No item remains `corrected_pending_independent_recheck`.
+- [ ] Introduction/Discussion citations have live connector retrieval evidence, PMID/DOI, and verified Q1/Q2 status.
+- [ ] NEJM/Lancet editorial pass removed redundant, repetitive, and AI-style prose.
